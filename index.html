@@ -1,1 +1,261 @@
 
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Login Manager</title>
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f1f5f9;color:#1e293b}
+header{background:#172554;color:white;padding:20px}
+header h2{margin:0}
+nav{display:flex;gap:8px;padding:12px;background:white;position:sticky;top:0}
+nav button{flex:1}
+main{padding:14px;max-width:750px;margin:auto}
+.card{background:white;padding:16px;margin-bottom:14px;border-radius:12px}
+input,select,textarea{width:100%;padding:11px;margin:5px 0 12px;border:1px solid #cbd5e1;border-radius:7px}
+button{padding:10px;border:0;border-radius:7px;background:#2563eb;color:white;cursor:pointer}
+.secondary{background:#64748b}
+.danger{background:#dc2626}
+.item{border:1px solid #cbd5e1;padding:12px;border-radius:9px;margin:10px 0;overflow-wrap:anywhere}
+.actions{display:flex;flex-wrap:wrap;gap:5px}
+small{color:#64748b}
+.hidden{display:none}
+</style>
+</head>
+
+<body>
+<header>
+<h2>🔐 My Login Manager</h2>
+<p>Pengelola data login pribadi</p>
+</header>
+
+<nav>
+<button onclick="showPage('home')">Beranda</button>
+<button onclick="showPage('data')">Data Login</button>
+<button onclick="showPage('search')">Cari Data</button>
+<button onclick="showPage('backup')">Backup</button>
+</nav>
+
+<main>
+<section id="home" class="card">
+<h3>Selamat datang!</h3>
+<p>Kelola data login dalam satu aplikasi.</p>
+<p id="total">Jumlah data: 0</p>
+</section>
+
+<section id="data" class="card hidden">
+<h3>Tambah / Edit Data</h3>
+
+<form id="form">
+<input type="hidden" id="recordId">
+
+<label>Kategori</label>
+<input id="kategori" required placeholder="Contoh: Email">
+
+<label>Subkategori</label>
+<input id="sub" placeholder="Contoh: Pribadi">
+
+<label>Website</label>
+<input id="web" placeholder="https://contoh.com">
+
+<label>Telepon</label>
+<input id="phone" placeholder="Nomor telepon">
+
+<label>Email</label>
+<input id="email" placeholder="Email akun">
+
+<label>Username</label>
+<input id="user" placeholder="Username">
+
+<label>Password</label>
+<input id="pass" type="password" placeholder="Password">
+
+<label>Keterangan</label>
+<textarea id="keterangan"></textarea>
+
+<button type="submit">Simpan Data</button>
+<button type="button" class="secondary" onclick="resetForm()">Bersihkan</button>
+</form>
+
+<h3>Daftar Login</h3>
+<div id="allData"></div>
+</section>
+
+<section id="search" class="card hidden">
+<h3>Cari Data Login</h3>
+<input id="query" placeholder="Cari kategori, website, email..." oninput="renderSearch()">
+<div id="searchResults"></div>
+</section>
+
+<section id="backup" class="card hidden">
+<h3>Backup Data</h3>
+<button onclick="exportData()">Unduh Backup JSON</button>
+
+<h4>Pulihkan Backup</h4>
+<input type="file" id="importFile" accept=".json,application/json">
+<button onclick="importData()">Pulihkan Data</button>
+</section>
+
+<p><small>Prototipe awal. Penyimpanan browser belum dienkripsi. Jangan gunakan untuk password asli sebelum keamanan ditingkatkan.</small></p>
+</main>
+
+<script>
+const fields=['kategori','sub','web','phone','email','user','pass','keterangan'];
+let records=[];
+
+try{
+ records=JSON.parse(localStorage.getItem('mlm_records')||'[]');
+ if(!Array.isArray(records)) records=[];
+}catch(e){records=[]}
+
+function persist(){
+ localStorage.setItem('mlm_records',JSON.stringify(records));
+ renderAll();
+ renderSearch();
+}
+
+function showPage(id){
+ ['home','data','search','backup'].forEach(p=>{
+  document.getElementById(p).classList.toggle('hidden',p!==id);
+ });
+}
+
+function resetForm(){
+ document.getElementById('form').reset();
+ document.getElementById('recordId').value='';
+}
+
+document.getElementById('form').addEventListener('submit',function(e){
+ e.preventDefault();
+
+ const id=document.getElementById('recordId').value;
+ const item={};
+
+ fields.forEach(f=>{
+  item[f]=document.getElementById(f).value.trim();
+ });
+
+ if(id){
+  const i=records.findIndex(r=>r.id===id);
+  if(i>=0) records[i]={...records[i],...item};
+ }else{
+  item.id=String(Date.now())+Math.random().toString(16).slice(2);
+  records.push(item);
+ }
+
+ persist();
+ resetForm();
+ alert('Data berhasil disimpan.');
+});
+
+function escapeHtml(value){
+ return String(value||'').replace(/[&<>"']/g,c=>({
+  '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+ }[c]));
+}
+
+function renderAll(){
+ document.getElementById('total').textContent='Jumlah data: '+records.length;
+
+ document.getElementById('allData').innerHTML=records.length?
+ records.map(r=>cardHtml(r)).join(''):
+ '<p>Belum ada data login.</p>';
+}
+
+function cardHtml(r){
+ return `<article class="item">
+ <b>${escapeHtml(r.kategori)}</b>
+ ${r.sub?' · '+escapeHtml(r.sub):''}
+ <p>${escapeHtml(r.web||r.email||r.phone||r.user)}</p>
+ <p>${escapeHtml((r.keterangan||'').slice(0,30))}</p>
+ <div class="actions">
+ <button onclick="editRecord('${r.id}')">✏️</button>
+ <button class="secondary" onclick="togglePassword('${r.id}')">👁️</button>
+ <button class="secondary" onclick="copyPassword('${r.id}')">📋</button>
+ <button class="danger" onclick="deleteRecord('${r.id}')">🗑️</button>
+ </div>
+ </article>`;
+}
+
+function editRecord(id){
+ const r=records.find(x=>x.id===id);
+ if(!r)return;
+
+ document.getElementById('recordId').value=r.id;
+ fields.forEach(f=>document.getElementById(f).value=r[f]||'');
+ showPage('data');
+ window.scrollTo(0,0);
+}
+
+function togglePassword(id){
+ const r=records.find(x=>x.id===id);
+ if(r) alert('Password: '+(r.pass||'(kosong)'));
+}
+
+async function copyPassword(id){
+ const r=records.find(x=>x.id===id);
+ if(!r)return;
+
+ try{
+  await navigator.clipboard.writeText(r.pass||'');
+  alert('Password disalin.');
+ }catch(e){
+  alert('Clipboard tidak tersedia pada browser ini.');
+ }
+}
+
+function deleteRecord(id){
+ if(confirm('Hapus data ini?')){
+  records=records.filter(r=>r.id!==id);
+  persist();
+ }
+}
+
+function renderSearch(){
+ const q=(document.getElementById('query').value||'').toLowerCase();
+
+ const found=records.filter(r=>
+  fields.some(f=>(r[f]||'').toLowerCase().includes(q))
+ );
+
+ document.getElementById('searchResults').innerHTML=
+ found.slice(0,5).map(r=>cardHtml(r)).join('')||
+ '<p>Tidak ada hasil.</p>';
+}
+
+function exportData(){
+ const blob=new Blob([JSON.stringify(records,null,2)],{type:'application/json'});
+ const url=URL.createObjectURL(blob);
+ const a=document.createElement('a');
+ a.href=url;
+ a.download='my-login-manager-backup.json';
+ a.click();
+ URL.revokeObjectURL(url);
+}
+
+async function importData(){
+ const file=document.getElementById('importFile').files[0];
+ if(!file){alert('Pilih file backup terlebih dahulu.');return}
+
+ try{
+  const imported=JSON.parse(await file.text());
+  if(!Array.isArray(imported))throw Error();
+
+  if(confirm('Ganti seluruh data dengan isi backup?')){
+   records=imported;
+   persist();
+   alert('Backup berhasil dipulihkan.');
+  }
+ }catch(e){
+  alert('File backup tidak valid.');
+ }
+}
+
+renderAll();
+renderSearch();
+</script>
+</body>
+</html>
