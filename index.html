@@ -13,9 +13,9 @@
 <section id="tab-calendar" class="tab hidden"><div class="card"><div class="calendar-toolbar"><button type="button" id="calendarPrev" class="secondary icon-btn" aria-label="Bulan sebelumnya" title="Bulan sebelumnya">‹</button><h2 id="calendarMonthTitle">Kalender</h2><button type="button" id="calendarNext" class="secondary icon-btn" aria-label="Bulan berikutnya" title="Bulan berikutnya">›</button></div><div class="calendar-grid" id="calendarWeekdays"><div class="calendar-weekday">Sen</div><div class="calendar-weekday">Sel</div><div class="calendar-weekday">Rab</div><div class="calendar-weekday">Kam</div><div class="calendar-weekday">Jum</div><div class="calendar-weekday">Sab</div><div class="calendar-weekday">Min</div></div><div class="calendar-grid" id="calendarDays"></div><p class="calendar-legend">Angka besar adalah tanggal Masehi. Di bawahnya ditampilkan tanggal Jawa dan pasaran Jawa. Tanggal Jawa dihitung berdasarkan siklus kalender Jawa Sultan Agung; untuk penentuan adat yang sangat penting, cocokkan dengan kalender Jawa rujukan setempat.</p><div class="row" style="margin-top:12px"><button type="button" id="calendarToday" class="secondary small">Bulan ini</button></div></div></section><section id="tab-kurs" class="tab hidden">
 <div class="card"><div class="row" style="align-items:center;justify-content:space-between"><h2 style="margin:0">💱 Kurs Mata Uang</h2><button type="button" id="kursRefresh" class="secondary" title="Perbarui kurs online" aria-label="Perbarui kurs online">↻ Update kurs</button></div>
 <p class="meta">Masukkan nilai pada salah satu kolom. Nilai dua mata uang lainnya akan dihitung otomatis menggunakan kurs terakhir yang tersedia.</p>
-<div class="field"><label for="kursMyr">Ringgit Malaysia (MYR)</label><input id="kursMyr" type="number" inputmode="decimal" min="0" step="any" value="1"></div>
-<div class="field"><label for="kursUsd">Dolar Amerika Serikat (USD)</label><input id="kursUsd" type="number" inputmode="decimal" min="0" step="any" value="1"></div>
-<div class="field"><label for="kursIdr">Rupiah Indonesia (IDR)</label><input id="kursIdr" type="number" inputmode="decimal" min="0" step="any" value="0"></div>
+<div class="field"><label for="kursMyr">Ringgit Malaysia (MYR)</label><input id="kursMyr" type="text" inputmode="numeric" autocomplete="off" value="1"></div>
+<div class="field"><label for="kursUsd">Dolar Amerika Serikat (USD)</label><input id="kursUsd" type="text" inputmode="numeric" autocomplete="off" value="1"></div>
+<div class="field"><label for="kursIdr">Rupiah Indonesia (IDR)</label><input id="kursIdr" type="text" inputmode="numeric" autocomplete="off" value="0"></div>
 <div class="card" style="margin-top:12px;margin-bottom:0"><div id="kursMyrRate">1 MYR = — IDR</div><div id="kursUsdRate" style="margin-top:8px">1 USD = — IDR</div><div id="kursUpdated" class="meta" style="margin-top:8px">Kurs belum diperbarui.</div><div id="kursStatus" class="status" role="status" aria-live="polite"></div></div>
 <p class="meta">Kurs indikatif dari layanan online, dapat berbeda dari kurs bank atau money changer. Tombol update hanya meminta data kurs; nilai konversi yang kamu ketik tidak dikirim.</p></div></section><section id="tab-backup" class="tab hidden"><div class="card"><h2>Backup semua data</h2><p class="meta">Membuat file JSON terenkripsi menggunakan PIN aplikasi. Simpan file di tempat aman.</p><button id="backupBtn">Buat backup terenkripsi</button><div id="backupStatus" class="status" role="status"></div></div><div class="card"><h2>Restore semua data</h2><p class="meta">Pilih file backup dari aplikasi ini. Restore akan mengganti semua data saat ini.</p><div class="field"><label for="backupFile">File backup (.json)</label><input id="backupFile" type="file" accept="application/json,.json"></div><button id="restoreBtn" class="secondary">Restore semua data</button><div id="restoreStatus" class="status" role="status"></div></div><div class="card"><h2>Hapus semua data</h2><p class="warning">Tindakan ini tidak dapat dibatalkan kecuali kamu memiliki file backup.</p><button id="deleteAllBtn" class="danger">Hapus semua data</button></div><div class="card"><h2>Keamanan</h2><p class="warning">Versi prototipe ini mengenkripsi data dengan AES-GCM dan kunci turunan PBKDF2. Jangan gunakan untuk password penting sebelum aplikasi native final ditinjau dan diuji secara menyeluruh. PIN yang hilang tidak dapat dipulihkan.</p></div></section></div><nav class="bottom-nav" aria-label="Navigasi utama"><button class="active" data-tab="records"><span class="nav-icon">▤</span><span>Data Login</span></button><button data-tab="searchPage"><span class="nav-icon">⌕</span><span>Cari Data</span></button><button data-tab="categories"><span class="nav-icon">▦</span><span>Kategori</span></button><button data-tab="backup"><span class="nav-icon">⇧</span><span>Backup</span></button></nav></main>
 <script>
@@ -66,16 +66,28 @@ function calendarCell(d,outside){const j=javaneseDate(d),now=new Date(),today=d.
 $('calendarPrev').onclick=()=>{calendarView=new Date(calendarView.getFullYear(),calendarView.getMonth()-1,1);renderCalendar()};$('calendarNext').onclick=()=>{calendarView=new Date(calendarView.getFullYear(),calendarView.getMonth()+1,1);renderCalendar()};$('calendarToday').onclick=()=>{const n=new Date();calendarView=new Date(n.getFullYear(),n.getMonth(),1);renderCalendar()};
 
 let kursRateMYR=null,kursRateUSD=null,kursUpdatedAt=null;
-const kursFormat=n=>Number.isFinite(n)?new Intl.NumberFormat('id-ID',{maximumFractionDigits:2}).format(n):'—';
+const kursFormat=n=>Number.isFinite(n)?new Intl.NumberFormat('id-ID',{maximumFractionDigits:0}).format(Math.round(n)):'—';
+const kursParse=id=>{const digits=$(id).value.replace(/\D/g,'');return digits===''?null:Number(digits)};
+const kursMoney=n=>Number.isFinite(n)?new Intl.NumberFormat('id-ID',{maximumFractionDigits:0}).format(Math.round(n)):'';
 function kursRecalc(source){
  if(!Number.isFinite(kursRateMYR)||!Number.isFinite(kursRateUSD)) return;
- const myr=$('kursMyr'),usd=$('kursUsd'),idr=$('kursIdr');
- const val=id=>{const n=Number($(id).value);return $(id).value.trim()!==''&&Number.isFinite(n)&&n>=0?n:null};
- if(source==='myr'){const v=val('kursMyr');if(v!==null){idr.value=String(v*kursRateMYR);usd.value=String(v*kursRateMYR/kursRateUSD)}}
- else if(source==='usd'){const v=val('kursUsd');if(v!==null){idr.value=String(v*kursRateUSD);myr.value=String(v*kursRateUSD/kursRateMYR)}}
- else if(source==='idr'){const v=val('kursIdr');if(v!==null){myr.value=String(v/kursRateMYR);usd.value=String(v/kursRateUSD)}}
+ const val=kursParse(source);
+ if(val===null)return;
+ if(source==='kursMyr'){$('kursIdr').value=kursMoney(val*kursRateMYR);$('kursUsd').value=kursMoney(val*kursRateMYR/kursRateUSD)}
+ else if(source==='kursUsd'){$('kursIdr').value=kursMoney(val*kursRateUSD);$('kursMyr').value=kursMoney(val*kursRateUSD/kursRateMYR)}
+ else if(source==='kursIdr'){$('kursMyr').value=kursMoney(val/kursRateMYR);$('kursUsd').value=kursMoney(val/kursRateUSD)}
  $('kursMyrRate').textContent='1 MYR = '+kursFormat(kursRateMYR)+' IDR';
  $('kursUsdRate').textContent='1 USD = '+kursFormat(kursRateUSD)+' IDR';
+}
+function kursFormatInput(id,source){
+ const el=$(id),old=el.value,pos=el.selectionStart??old.length,digitsBefore=old.slice(0,pos).replace(/\D/g,'').length;
+ const digits=old.replace(/\D/g,'');
+ if(!digits){el.value='';return}
+ el.value=new Intl.NumberFormat('id-ID',{maximumFractionDigits:0}).format(Number(digits));
+ let cursor=0,count=0;
+ while(cursor<el.value.length&&count<digitsBefore){if(/\d/.test(el.value[cursor]))count++;cursor++}
+ el.setSelectionRange(cursor,cursor);
+ kursRecalc(source);
 }
 async function updateKurs(){
  const btn=$('kursRefresh');btn.disabled=true;$('kursStatus').textContent='Mengambil kurs online…';
@@ -87,15 +99,15 @@ async function updateKurs(){
   kursRateUSD=data.rates.IDR;kursRateMYR=data.rates.IDR/data.rates.MYR;
   kursUpdatedAt=data.time_last_update_utc||new Date().toISOString();
   $('kursUpdated').textContent='Terakhir diperbarui: '+kursUpdatedAt+' • Sumber: open.er-api.com';
-  const current=Number($('kursIdr').value);
-  if(Number.isFinite(current)&&current>0)kursRecalc('idr');else kursRecalc('myr');
+  const current=kursParse('kursIdr');
+  if(current!==null&&current>0)kursRecalc('kursIdr');else kursRecalc('kursMyr');
   $('kursStatus').textContent='Kurs berhasil diperbarui.';
  }catch(e){$('kursStatus').textContent='Gagal memperbarui kurs. Periksa koneksi internet lalu coba lagi.'}
  finally{btn.disabled=false}
 }
-$('kursMyr').addEventListener('input',()=>kursRecalc('myr'));
-$('kursUsd').addEventListener('input',()=>kursRecalc('usd'));
-$('kursIdr').addEventListener('input',()=>kursRecalc('idr'));
+$('kursMyr').addEventListener('input',()=>kursFormatInput('kursMyr','kursMyr'));
+$('kursUsd').addEventListener('input',()=>kursFormatInput('kursUsd','kursUsd'));
+$('kursIdr').addEventListener('input',()=>kursFormatInput('kursIdr','kursIdr'));
 $('kursRefresh').addEventListener('click',updateKurs);
 function navigate(tab){document.querySelectorAll('.bottom-nav [data-tab]').forEach(x=>x.classList.toggle('active',x.dataset.tab===tab));document.querySelectorAll('.burger-menu [data-tab]').forEach(x=>x.classList.toggle('active',x.dataset.tab===tab));document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('hidden',x.id!=='tab-'+tab));$('burgerMenu').classList.add('hidden');$('burgerBtn').setAttribute('aria-expanded','false');if(tab==='searchPage'){searchMode='idle';searchResults=[];searchPage=1;$('search').value='';renderSearch()}if(tab==='calendar')renderCalendar();window.scrollTo({top:0,behavior:'smooth'})}document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>navigate(b.dataset.tab));$('burgerBtn').onclick=()=>{const open=$('burgerMenu').classList.toggle('hidden')===false;$('burgerBtn').setAttribute('aria-expanded',String(open))};document.addEventListener('click',e=>{if(!e.target.closest('.burger-wrap')){$('burgerMenu').classList.add('hidden');$('burgerBtn').setAttribute('aria-expanded','false')}});
 $('backupBtn').onclick=()=>{try{const blob=JSON.parse(localStorage.getItem(STORE));const data=new Blob([JSON.stringify(blob,null,2)],{type:'application/json'});const url=URL.createObjectURL(data),a=document.createElement('a');a.href=url;a.download='my-login-manager-backup-'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(url);$('backupStatus').textContent='File backup terenkripsi berhasil dibuat.'}catch(e){$('backupStatus').textContent='Backup gagal: '+e.message}};
