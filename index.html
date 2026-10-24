@@ -1,261 +1,65 @@
+<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101827"><title>My Login Manager</title><style>
+:root{--bg:#0b1220;--panel:#121d2f;--line:#27354a;--text:#eef4ff;--muted:#9aabc4;--accent:#6ee7b7;--danger:#fb7185}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px system-ui,-apple-system,Segoe UI,sans-serif}header{padding:16px;background:#101827;position:sticky;top:0;z-index:20;border-bottom:1px solid var(--line)}.header-row{display:flex;align-items:center;justify-content:space-between;gap:12px}.header-title{min-width:0}h1{font-size:22px;margin:0}.burger-wrap{position:relative;flex-shrink:0}.burger-btn{width:40px;height:40px;padding:0;display:flex;align-items:center;justify-content:center;background:#25344a;color:var(--text);font-size:22px}.burger-menu{position:absolute;right:0;top:48px;width:190px;padding:7px;background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:0 12px 32px #0009}.burger-menu button{display:flex;align-items:center;gap:10px;width:100%;padding:11px;background:transparent;color:var(--text);text-align:left}.burger-menu button:hover,.burger-menu button.active{background:#244338;color:var(--accent)}.burger-menu .nav-icon{width:22px;text-align:center;font-size:18px}header p{margin:4px 0 0;color:var(--muted);font-size:12px}.wrap{max-width:760px;margin:auto;padding:14px 14px 90px}.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;margin:0 0 14px}h2{font-size:17px;margin:0 0 12px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field{margin-bottom:10px}.field.full{grid-column:1/-1}label{display:block;font-size:12px;color:var(--muted);margin:0 0 5px}input,select,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:#0b1423;color:var(--text);font:inherit;min-width:0}textarea{min-height:75px;resize:vertical}button{border:0;border-radius:10px;padding:11px 14px;background:var(--accent);color:#06251a;font-weight:700;font-size:14px;cursor:pointer}button.secondary{background:#25344a;color:var(--text)}button.danger{background:#7f2638;color:#fff}button.small{padding:7px 9px;font-size:12px}.row{display:flex;gap:8px;flex-wrap:wrap}.tabs{display:none}.bottom-nav{position:fixed;z-index:10;left:50%;bottom:max(12px,env(safe-area-inset-bottom));transform:translateX(-50%);width:min(720px,calc(100% - 24px));display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:7px;background:rgba(18,29,47,.96);border:1px solid var(--line);border-radius:20px;box-shadow:0 8px 30px #0008;backdrop-filter:blur(14px)}.bottom-nav button{background:transparent;color:var(--muted);padding:8px 3px 6px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:10px;font-weight:600;border-radius:13px;white-space:nowrap}.bottom-nav button .nav-icon{font-size:19px;line-height:1}.bottom-nav button.active{background:#244338;color:var(--accent)}.entry-actions{display:flex;align-items:center;gap:6px}.icon-btn{width:32px;height:32px;min-width:32px;padding:0;display:inline-flex;align-items:center;justify-content:center;border-radius:9px;background:#25344a;color:var(--text);font-size:16px;line-height:1}.icon-btn.danger{background:#7f2638;color:#fff}.icon-btn:focus-visible,.bottom-nav button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}.entry-actions button svg{width:16px;height:16px;display:block}.wrap{padding-bottom:110px}.entry{padding:13px 0;border-top:1px solid var(--line)}.entry:first-child{border-top:0}.entry strong{display:block;overflow-wrap:anywhere}.meta{color:var(--muted);font-size:12px;margin:4px 0 9px;overflow-wrap:anywhere}.search-entry{padding:13px 0;border-top:1px solid var(--line)}.search-entry:first-child{border-top:0}.search-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px 12px;align-items:start}.search-left{text-align:left;min-width:0;overflow-wrap:anywhere}.search-right{text-align:right;min-width:0;overflow-wrap:anywhere}.search-label{display:block;color:var(--muted);font-size:11px;margin-bottom:2px}.search-value{font-size:13px;font-weight:650;overflow-wrap:anywhere}.search-entry .entry-actions{margin-top:10px}.search-extra{font-size:12px;color:var(--muted);margin-top:5px;overflow-wrap:anywhere}@media(max-width:360px){.search-layout{gap:7px}.search-value{font-size:12px}}.search-controls{display:flex;gap:8px;margin-top:12px}.search-controls input{flex:1;min-width:0}.search-controls button{flex-shrink:0}.search-icon-btn{margin-left:0}.search-icon-btn svg{width:18px;height:18px;display:block}.all-data-btn{width:32px;height:32px;min-width:32px;padding:0;display:inline-flex;align-items:center;justify-content:center;margin-left:8px;background:#25344a;color:var(--text);vertical-align:middle;font-size:17px}.search-heading{display:flex;align-items:center;justify-content:space-between;gap:8px}.search-heading h2{margin:0}.pagination{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px}.pagination button:disabled{opacity:.35;cursor:not-allowed}.page-info{font-size:12px;color:var(--muted)}.calendar-toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}.calendar-toolbar h2{margin:0;text-align:center;flex:1}.calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}.calendar-weekday{text-align:center;font-size:10px;color:var(--muted);padding:5px 0;font-weight:700}.calendar-day{min-width:0;min-height:82px;border:1px solid var(--line);border-radius:9px;padding:5px 2px;text-align:center;background:#0b1423;overflow:hidden}.calendar-day.today{border:2px solid var(--accent);background:#17352f}.calendar-day.outside{opacity:.35}.calendar-day .greg-date{font-size:18px;font-weight:800;line-height:1.2}.calendar-day .jawa-date{font-size:9px;line-height:1.25;color:var(--muted);margin-top:5px;overflow-wrap:anywhere}.calendar-day .pasaran{font-size:10px;color:var(--accent);font-weight:700;margin-top:2px}.calendar-legend{font-size:11px;color:var(--muted);margin-top:12px;line-height:1.5}@media(max-width:390px){.calendar-grid{gap:2px}.calendar-day{min-height:74px;padding:4px 1px}.calendar-day .greg-date{font-size:16px}.calendar-day .jawa-date{font-size:8px}.calendar-day .pasaran{font-size:9px}.calendar-weekday{font-size:9px}}
+.hidden{display:none!important}.status{color:var(--muted);font-size:12px;margin-top:9px}.pill{display:inline-block;border:1px solid var(--line);padding:3px 7px;border-radius:99px;color:var(--muted);font-size:11px;margin-right:4px}.warning{color:#fbbf24;font-size:12px;line-height:1.5}.empty{color:var(--muted);text-align:center;padding:20px}.top-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}@media(max-width:480px){.grid{grid-template-columns:1fr}.field.full{grid-column:auto}.wrap{padding:12px 10px 80px}.card{padding:13px}}
 
-<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>My Login Manager</title>
-
-<style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f1f5f9;color:#1e293b}
-header{background:#172554;color:white;padding:20px}
-header h2{margin:0}
-nav{display:flex;gap:8px;padding:12px;background:white;position:sticky;top:0}
-nav button{flex:1}
-main{padding:14px;max-width:750px;margin:auto}
-.card{background:white;padding:16px;margin-bottom:14px;border-radius:12px}
-input,select,textarea{width:100%;padding:11px;margin:5px 0 12px;border:1px solid #cbd5e1;border-radius:7px}
-button{padding:10px;border:0;border-radius:7px;background:#2563eb;color:white;cursor:pointer}
-.secondary{background:#64748b}
-.danger{background:#dc2626}
-.item{border:1px solid #cbd5e1;padding:12px;border-radius:9px;margin:10px 0;overflow-wrap:anywhere}
-.actions{display:flex;flex-wrap:wrap;gap:5px}
-small{color:#64748b}
-.hidden{display:none}
-</style>
-</head>
-
-<body>
-<header>
-<h2>🔐 My Login Manager</h2>
-<p>Pengelola data login pribadi</p>
-</header>
-
-<nav>
-<button onclick="showPage('home')">Beranda</button>
-<button onclick="showPage('data')">Data Login</button>
-<button onclick="showPage('search')">Cari Data</button>
-<button onclick="showPage('backup')">Backup</button>
-</nav>
-
-<main>
-<section id="home" class="card">
-<h3>Selamat datang!</h3>
-<p>Kelola data login dalam satu aplikasi.</p>
-<p id="total">Jumlah data: 0</p>
+.category-filter-row{display:flex;gap:8px;align-items:center;margin:12px 0;flex-wrap:wrap}.category-filter-row select{flex:1;min-width:150px}.favorite-filter-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:42px;padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--text);font-weight:600}.favorite-filter-btn.active{border-color:#d9a400;background:#fff5c2;color:#755600}.favorite-star{font-size:20px;line-height:1;color:#a0a0a0}.favorite-star.active{color:#e0a800}.favorite-action{min-width:36px}
+</style></head><body><header><div class="header-row"><div class="header-title"><h1>🔐 My Login Manager</h1><p>Offline • Data terenkripsi • Penyimpanan lokal perangkat</p></div><div class="burger-wrap"><button type="button" id="burgerBtn" class="burger-btn" aria-label="Buka menu" aria-expanded="false">☰</button><div id="burgerMenu" class="burger-menu hidden" aria-label="Menu utama"><button data-tab="records"><span class="nav-icon">▤</span>Data Login</button><button data-tab="searchPage"><span class="nav-icon">⌕</span>Cari Data</button><button data-tab="categories"><span class="nav-icon">▦</span>Kategori</button><button data-tab="backup"><span class="nav-icon">⇧</span>Backup</button><button data-tab="calendar"><span class="nav-icon">▦</span>Kalender</button></div></div></div></header><main class="wrap">
+<section id="lock" class="card"><h2 id="lockTitle">Buat PIN aplikasi</h2><p id="lockInfo" class="meta">Gunakan PIN 6 digit. Ingat PIN ini: data terenkripsi tidak dapat dipulihkan jika PIN hilang dan tidak ada salinan PIN yang benar.</p><div class="field"><label for="pin">PIN 6 digit</label><input id="pin" type="password" inputmode="numeric" maxlength="6" pattern="[0-9]{6}" autocomplete="current-password" placeholder="••••••"></div><button id="unlockBtn">Buka aplikasi</button><div id="lockStatus" class="status" role="status"></div></section>
+<div id="app" class="hidden">
+<section id="tab-records" class="tab"><div class="card"><h2 id="formTitle">Tambah data login</h2><form id="recordForm"><input type="hidden" id="recordId"><div class="grid"><div class="field"><label for="category">Kategori</label><select id="category" required></select></div><div class="field"><label for="subcategory">Sub</label><select id="subcategory"></select></div><div class="field"><label for="web">Web</label><input id="web" placeholder="https://contoh.com"></div><div class="field"><label for="phone">Phone</label><input id="phone" inputmode="tel" placeholder="Nomor telepon"></div><div class="field"><label for="email">Email</label><input id="email" type="email" placeholder="nama@contoh.com"></div><div class="field"><label for="user">User</label><input id="user" autocomplete="off"></div><div class="field"><label for="pass">Pass</label><input id="pass" type="password" autocomplete="new-password"></div><div class="field full"><label for="notes">Keterangan</label><textarea id="notes"></textarea></div></div><div class="row"><button type="submit">Simpan</button><button type="button" class="secondary" id="clearForm">Kosongkan</button><button type="button" class="secondary" id="togglePass">Tampilkan password</button></div></form></div>
 </section>
-
-<section id="data" class="card hidden">
-<h3>Tambah / Edit Data</h3>
-
-<form id="form">
-<input type="hidden" id="recordId">
-
-<label>Kategori</label>
-<input id="kategori" required placeholder="Contoh: Email">
-
-<label>Subkategori</label>
-<input id="sub" placeholder="Contoh: Pribadi">
-
-<label>Website</label>
-<input id="web" placeholder="https://contoh.com">
-
-<label>Telepon</label>
-<input id="phone" placeholder="Nomor telepon">
-
-<label>Email</label>
-<input id="email" placeholder="Email akun">
-
-<label>Username</label>
-<input id="user" placeholder="Username">
-
-<label>Password</label>
-<input id="pass" type="password" placeholder="Password">
-
-<label>Keterangan</label>
-<textarea id="keterangan"></textarea>
-
-<button type="submit">Simpan Data</button>
-<button type="button" class="secondary" onclick="resetForm()">Bersihkan</button>
-</form>
-
-<h3>Daftar Login</h3>
-<div id="allData"></div>
-</section>
-
-<section id="search" class="card hidden">
-<h3>Cari Data Login</h3>
-<input id="query" placeholder="Cari kategori, website, email..." oninput="renderSearch()">
-<div id="searchResults"></div>
-</section>
-
-<section id="backup" class="card hidden">
-<h3>Backup Data</h3>
-<button onclick="exportData()">Unduh Backup JSON</button>
-
-<h4>Pulihkan Backup</h4>
-<input type="file" id="importFile" accept=".json,application/json">
-<button onclick="importData()">Pulihkan Data</button>
-</section>
-
-<p><small>Prototipe awal. Penyimpanan browser belum dienkripsi. Jangan gunakan untuk password asli sebelum keamanan ditingkatkan.</small></p>
-</main>
-
+<section id="tab-searchPage" class="tab hidden"><div class="card"><div class="search-heading"><h2>Cari Data Login</h2><button type="button" id="showAllBtn" class="all-data-btn" title="Tampilkan semua data" aria-label="Tampilkan semua data">▤</button></div><p class="meta">Cari berdasarkan Web, Phone, atau Email. Data hanya tampil setelah pencarian dijalankan.</p><div class="search-controls"><input id="search" placeholder="Ketik web, phone, atau email…" aria-label="Pencarian"><button id="searchBtn" type="button" class="all-data-btn search-icon-btn" title="Cari" aria-label="Cari data"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg></button></div><div class="category-filter-row"><select id="categoryFilter" aria-label="Filter kategori"><option value="all">Semua kategori</option></select><button type="button" id="favoritesFilter" class="favorite-filter-btn" aria-pressed="false"><span class="favorite-star active">★</span> Favorit saja</button></div><div id="searchRecordList"><div class="empty">Masukkan kata kunci lalu tekan Cari, atau tekan ikon daftar untuk melihat semua data.</div></div><div id="searchPagination" class="pagination hidden"><button type="button" id="prevPage" class="secondary small">‹ Sebelumnya</button><span id="pageInfo" class="page-info"></span><button type="button" id="nextPage" class="secondary small">Berikutnya ›</button></div></div></section>
+<section id="tab-categories" class="tab hidden"><div class="card"><h2>Tambah kategori</h2><form id="categoryForm"><div class="field"><label for="newCategory">Nama kategori</label><input id="newCategory" required></div><button type="submit">Simpan kategori</button></form><hr style="border-color:var(--line);margin:18px 0"><h2>Tambah Sub</h2><form id="subForm"><div class="field"><label for="parentCategory">Kategori induk</label><select id="parentCategory" required></select></div><div class="field"><label for="newSubcategory">Nama Sub</label><input id="newSubcategory" required></div><button type="submit">Simpan Sub</button></form></div><div class="card"><h2>Daftar kategori</h2><div id="categoryList"></div></div></section>
+<section id="tab-calendar" class="tab hidden"><div class="card"><div class="calendar-toolbar"><button type="button" id="calendarPrev" class="secondary icon-btn" aria-label="Bulan sebelumnya" title="Bulan sebelumnya">‹</button><h2 id="calendarMonthTitle">Kalender</h2><button type="button" id="calendarNext" class="secondary icon-btn" aria-label="Bulan berikutnya" title="Bulan berikutnya">›</button></div><div class="calendar-grid" id="calendarWeekdays"><div class="calendar-weekday">Sen</div><div class="calendar-weekday">Sel</div><div class="calendar-weekday">Rab</div><div class="calendar-weekday">Kam</div><div class="calendar-weekday">Jum</div><div class="calendar-weekday">Sab</div><div class="calendar-weekday">Min</div></div><div class="calendar-grid" id="calendarDays"></div><p class="calendar-legend">Angka besar adalah tanggal Masehi. Di bawahnya ditampilkan tanggal Jawa dan pasaran Jawa. Tanggal Jawa dihitung berdasarkan siklus kalender Jawa Sultan Agung; untuk penentuan adat yang sangat penting, cocokkan dengan kalender Jawa rujukan setempat.</p><div class="row" style="margin-top:12px"><button type="button" id="calendarToday" class="secondary small">Bulan ini</button></div></div></section><section id="tab-backup" class="tab hidden"><div class="card"><h2>Backup semua data</h2><p class="meta">Membuat file JSON terenkripsi menggunakan PIN aplikasi. Simpan file di tempat aman.</p><button id="backupBtn">Buat backup terenkripsi</button><div id="backupStatus" class="status" role="status"></div></div><div class="card"><h2>Restore semua data</h2><p class="meta">Pilih file backup dari aplikasi ini. Restore akan mengganti semua data saat ini.</p><div class="field"><label for="backupFile">File backup (.json)</label><input id="backupFile" type="file" accept="application/json,.json"></div><button id="restoreBtn" class="secondary">Restore semua data</button><div id="restoreStatus" class="status" role="status"></div></div><div class="card"><h2>Hapus semua data</h2><p class="warning">Tindakan ini tidak dapat dibatalkan kecuali kamu memiliki file backup.</p><button id="deleteAllBtn" class="danger">Hapus semua data</button></div><div class="card"><h2>Keamanan</h2><p class="warning">Versi prototipe ini mengenkripsi data dengan AES-GCM dan kunci turunan PBKDF2. Jangan gunakan untuk password penting sebelum aplikasi native final ditinjau dan diuji secara menyeluruh. PIN yang hilang tidak dapat dipulihkan.</p></div></section></div><nav class="bottom-nav" aria-label="Navigasi utama"><button class="active" data-tab="records"><span class="nav-icon">▤</span><span>Data Login</span></button><button data-tab="searchPage"><span class="nav-icon">⌕</span><span>Cari Data</span></button><button data-tab="categories"><span class="nav-icon">▦</span><span>Kategori</span></button><button data-tab="backup"><span class="nav-icon">⇧</span><span>Backup</span></button></nav></main>
 <script>
-const fields=['kategori','sub','web','phone','email','user','pass','keterangan'];
-let records=[];
+(()=>{'use strict';const $=id=>document.getElementById(id);const STORE='mlm_v1_encrypted';let key=null,db=null,firstSetup=false;const enc=new TextEncoder(),dec=new TextDecoder();const b64=b=>btoa(String.fromCharCode(...new Uint8Array(b)));const unb64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));const random=n=>crypto.getRandomValues(new Uint8Array(n));
+async function derive(pin,salt){const base=await crypto.subtle.importKey('raw',enc.encode(pin),'PBKDF2',false,['deriveKey']);return crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:310000,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['encrypt','decrypt'])}
+async function encryptObject(obj,pin){const salt=random(16),iv=random(12),k=await derive(pin,salt),cipher=await crypto.subtle.encrypt({name:'AES-GCM',iv},k,enc.encode(JSON.stringify(obj)));return {app:'MyLoginManager',version:1,kdf:'PBKDF2-SHA256',iterations:310000,salt:b64(salt),iv:b64(iv),ciphertext:b64(cipher)}}
+async function decryptObject(blob,pin){if(blob.app!=='MyLoginManager'||blob.version!==1)throw Error('Format backup tidak dikenali.');const k=await derive(pin,unb64(blob.salt));const plain=await crypto.subtle.decrypt({name:'AES-GCM',iv:unb64(blob.iv)},k,unb64(blob.ciphertext));return JSON.parse(dec.decode(plain))}
+function initial(){return {records:[],categories:[{id:crypto.randomUUID(),name:'Keuangan',subs:['Bank Digital','Cryptocurrency','Saham']},{id:crypto.randomUUID(),name:'Email',subs:['Pribadi','Bisnis']},{id:crypto.randomUUID(),name:'Website',subs:['Hosting','Domain','Media Sosial']} ]}}
+async function save(){const blob=await encryptObject(db,$('pin').dataset.activePin);localStorage.setItem(STORE,JSON.stringify(blob))}
+function esc(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function showApp(){ $('lock').classList.add('hidden');$('app').classList.remove('hidden');renderAll() }
+$('unlockBtn').onclick=async()=>{const pin=$('pin').value;if(!/^\d{6}$/.test(pin)){$('lockStatus').textContent='PIN harus tepat 6 digit angka.';return}$('lockStatus').textContent='Memproses…';try{const raw=localStorage.getItem(STORE);if(!raw){db=initial();await localStorage.setItem(STORE,JSON.stringify(await encryptObject(db,pin)));firstSetup=true}else{db=await decryptObject(JSON.parse(raw),pin)}$('pin').dataset.activePin=pin;key=true;showApp();$('lockStatus').textContent=''}catch(e){$('lockStatus').textContent='PIN salah atau data tidak valid. Data tidak diubah.'}};
+function categoryOptions(){const cats=db.categories;$('category').innerHTML=cats.map(c=>`<option value="${esc(c.id)}">${esc(c.name)}</option>`).join('');$('parentCategory').innerHTML=cats.map(c=>`<option value="${esc(c.id)}">${esc(c.name)}</option>`).join('');updateSubs()}
+function updateSubs(){const c=db.categories.find(c=>c.id===$('category').value);$('subcategory').innerHTML='<option value="">— Tanpa Sub —</option>'+(c?c.subs.map(s=>`<option>${esc(s)}</option>`).join(''):'')}
+function recordMarkup(r){const cat=db.categories.find(c=>c.id===r.categoryId);return `<div class="entry"><strong>${esc(r.web||r.email||r.phone||'(Tanpa identitas)')}</strong><div class="meta"><span class="pill">${esc(cat?.name||'Kategori dihapus')}</span><span class="pill">${esc(r.subcategory||'Tanpa Sub')}</span><br>${esc(r.email)} ${r.phone?'• '+esc(r.phone):''}<br>Username: ${esc(r.user||'—')}<br>Password: <span id="pw-${r.id}">••••••••</span></div><div class="entry-actions" aria-label="Aksi data"><button type="button" class="icon-btn favorite-action" data-fav="${r.id}" aria-label="${r.favorite?'Hapus dari favorit':'Tambahkan ke favorit'}" title="${r.favorite?'Hapus dari favorit':'Tambahkan ke favorit'}"><span class="favorite-star ${r.favorite?'active':''}">${r.favorite?'★':'☆'}</span></button><button type="button" class="icon-btn" data-show="${r.id}" aria-label="Lihat atau sembunyikan password" title="Lihat password"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></button><button type="button" class="icon-btn" data-copy="${r.id}" aria-label="Salin password" title="Salin password"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg></button><button type="button" class="icon-btn" data-edit="${r.id}" aria-label="Edit data" title="Edit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg></button><button type="button" class="icon-btn danger" data-del="${r.id}" aria-label="Hapus data" title="Delete"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4h8v2m3 0-1 14H6L5 6m4 4v6m6-6v6"/></svg></button></div>${r.notes?`<div class="meta">${esc(r.notes)}</div>`:''}</div>`}
+function renderRecords(){/* Daftar login sengaja tidak ditampilkan di halaman depan. */}
+function searchRecordMarkup(r){const cat=db.categories.find(c=>c.id===r.categoryId);const note=String(r.notes||'');const shortNote=note.length>30?note.slice(0,30)+'…':note;return `<div class="search-entry"><div class="search-layout"><div class="search-left"><span class="search-label">Web</span><span class="search-value">${esc(r.web||'—')}</span></div><div class="search-right"><span class="search-label">Kategori</span><span class="search-value">${esc(cat?.name||'Kategori dihapus')}</span></div><div class="search-left"><span class="search-label">Phone</span><span class="search-value">${esc(r.phone||'—')}</span></div><div class="search-right"><span class="search-label">Sub</span><span class="search-value">${esc(r.subcategory||'—')}</span></div><div class="search-left"><span class="search-label">Email</span><span class="search-value">${esc(r.email||'—')}</span></div></div><div class="search-extra">User: ${esc(r.user||'—')} · Pass: <span id="pw-${r.id}">••••••••</span></div>${shortNote?`<div class="search-extra">Keterangan: ${esc(shortNote)}</div>`:''}<div class="entry-actions" aria-label="Aksi data"><button type="button" class="icon-btn favorite-action" data-fav="${r.id}" aria-label="${r.favorite?'Hapus dari favorit':'Tambahkan ke favorit'}" title="${r.favorite?'Hapus dari favorit':'Tambahkan ke favorit'}"><span class="favorite-star ${r.favorite?'active':''}">${r.favorite?'★':'☆'}</span></button><button type="button" class="icon-btn" data-show="${r.id}" aria-label="Lihat atau sembunyikan password" title="Lihat password"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></button><button type="button" class="icon-btn" data-copy="${r.id}" aria-label="Salin password" title="Salin password"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg></button><button type="button" class="icon-btn" data-edit="${r.id}" aria-label="Edit data" title="Edit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg></button><button type="button" class="icon-btn danger" data-del="${r.id}" aria-label="Hapus data" title="Delete"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4h8v2m3 0-1 14H6L5 6m4 4v6m6-6v6"/></svg></button></div></div>`}
+let searchMode='idle',searchResults=[],searchPage=1,favoritesOnly=false;const PAGE_SIZE=5;
+function refreshCategoryFilter(){const el=$('categoryFilter'),old=el.value||'all';el.innerHTML='<option value="all">Semua kategori</option>'+db.categories.map(c=>`<option value="${esc(c.id)}">${esc(c.name)}</option>`).join('');el.value=[...el.options].some(o=>o.value===old)?old:'all'}
+function applyFilters(items){const cat=$('categoryFilter').value;return items.filter(r=>(cat==='all'||r.categoryId===cat)&&(!favoritesOnly||r.favorite===true))}
+function sortRecords(items){return [...items].sort((a,b)=>{const ca=db.categories.find(c=>c.id===a.categoryId)?.name||'Kategori dihapus';const cb=db.categories.find(c=>c.id===b.categoryId)?.name||'Kategori dihapus';return ca.localeCompare(cb,'id',{sensitivity:'base'})||String(a.web||a.email||a.phone||'').localeCompare(String(b.web||b.email||b.phone||''),'id',{sensitivity:'base'})})}
+function runSearch(){const q=$('search').value.trim().toLowerCase();if(!q){searchMode='idle';searchResults=[];searchPage=1;renderSearch();return}searchMode='query';searchResults=sortRecords(applyFilters(db.records.filter(r=>[r.web,r.phone,r.email].some(v=>(v||'').toLowerCase().includes(q)))));searchPage=1;renderSearch()}
+function showAllRecords(){searchMode='all';searchResults=sortRecords(applyFilters(db.records));searchPage=1;renderSearch()}
+function renderSearch(){const list=$('searchRecordList'),pager=$('searchPagination');if(searchMode==='idle'){list.innerHTML='<div class="empty">Masukkan kata kunci lalu tekan Cari, atau tekan ikon daftar untuk melihat semua data.</div>';pager.classList.add('hidden');return}const total=searchResults.length;const pages=Math.max(1,Math.ceil(total/PAGE_SIZE));if(searchPage>pages)searchPage=pages;const visible=searchResults.slice((searchPage-1)*PAGE_SIZE,searchPage*PAGE_SIZE);list.innerHTML=visible.length?visible.map(searchRecordMarkup).join(''):'<div class="empty">'+(searchMode==='all'?'Belum ada data login.':'Belum ada data yang cocok.')+'</div>';pager.classList.toggle('hidden',total<=PAGE_SIZE);$('pageInfo').textContent=`Halaman ${searchPage} dari ${pages} • ${total} data`;$('prevPage').disabled=searchPage<=1;$('nextPage').disabled=searchPage>=pages}
+function handleRecordActions(e){return recordActions(e)}
 
-try{
- records=JSON.parse(localStorage.getItem('mlm_records')||'[]');
- if(!Array.isArray(records)) records=[];
-}catch(e){records=[]}
-
-function persist(){
- localStorage.setItem('mlm_records',JSON.stringify(records));
- renderAll();
- renderSearch();
-}
-
-function showPage(id){
- ['home','data','search','backup'].forEach(p=>{
-  document.getElementById(p).classList.toggle('hidden',p!==id);
- });
-}
-
-function resetForm(){
- document.getElementById('form').reset();
- document.getElementById('recordId').value='';
-}
-
-document.getElementById('form').addEventListener('submit',function(e){
- e.preventDefault();
-
- const id=document.getElementById('recordId').value;
- const item={};
-
- fields.forEach(f=>{
-  item[f]=document.getElementById(f).value.trim();
- });
-
- if(id){
-  const i=records.findIndex(r=>r.id===id);
-  if(i>=0) records[i]={...records[i],...item};
- }else{
-  item.id=String(Date.now())+Math.random().toString(16).slice(2);
-  records.push(item);
- }
-
- persist();
- resetForm();
- alert('Data berhasil disimpan.');
-});
-
-function escapeHtml(value){
- return String(value||'').replace(/[&<>"']/g,c=>({
-  '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
- }[c]));
-}
-
-function renderAll(){
- document.getElementById('total').textContent='Jumlah data: '+records.length;
-
- document.getElementById('allData').innerHTML=records.length?
- records.map(r=>cardHtml(r)).join(''):
- '<p>Belum ada data login.</p>';
-}
-
-function cardHtml(r){
- return `<article class="item">
- <b>${escapeHtml(r.kategori)}</b>
- ${r.sub?' · '+escapeHtml(r.sub):''}
- <p>${escapeHtml(r.web||r.email||r.phone||r.user)}</p>
- <p>${escapeHtml((r.keterangan||'').slice(0,30))}</p>
- <div class="actions">
- <button onclick="editRecord('${r.id}')">✏️</button>
- <button class="secondary" onclick="togglePassword('${r.id}')">👁️</button>
- <button class="secondary" onclick="copyPassword('${r.id}')">📋</button>
- <button class="danger" onclick="deleteRecord('${r.id}')">🗑️</button>
- </div>
- </article>`;
-}
-
-function editRecord(id){
- const r=records.find(x=>x.id===id);
- if(!r)return;
-
- document.getElementById('recordId').value=r.id;
- fields.forEach(f=>document.getElementById(f).value=r[f]||'');
- showPage('data');
- window.scrollTo(0,0);
-}
-
-function togglePassword(id){
- const r=records.find(x=>x.id===id);
- if(r) alert('Password: '+(r.pass||'(kosong)'));
-}
-
-async function copyPassword(id){
- const r=records.find(x=>x.id===id);
- if(!r)return;
-
- try{
-  await navigator.clipboard.writeText(r.pass||'');
-  alert('Password disalin.');
- }catch(e){
-  alert('Clipboard tidak tersedia pada browser ini.');
- }
-}
-
-function deleteRecord(id){
- if(confirm('Hapus data ini?')){
-  records=records.filter(r=>r.id!==id);
-  persist();
- }
-}
-
-function renderSearch(){
- const q=(document.getElementById('query').value||'').toLowerCase();
-
- const found=records.filter(r=>
-  fields.some(f=>(r[f]||'').toLowerCase().includes(q))
- );
-
- document.getElementById('searchResults').innerHTML=
- found.slice(0,5).map(r=>cardHtml(r)).join('')||
- '<p>Tidak ada hasil.</p>';
-}
-
-function exportData(){
- const blob=new Blob([JSON.stringify(records,null,2)],{type:'application/json'});
- const url=URL.createObjectURL(blob);
- const a=document.createElement('a');
- a.href=url;
- a.download='my-login-manager-backup.json';
- a.click();
- URL.revokeObjectURL(url);
-}
-
-async function importData(){
- const file=document.getElementById('importFile').files[0];
- if(!file){alert('Pilih file backup terlebih dahulu.');return}
-
- try{
-  const imported=JSON.parse(await file.text());
-  if(!Array.isArray(imported))throw Error();
-
-  if(confirm('Ganti seluruh data dengan isi backup?')){
-   records=imported;
-   persist();
-   alert('Backup berhasil dipulihkan.');
-  }
- }catch(e){
-  alert('File backup tidak valid.');
- }
-}
-
-renderAll();
-renderSearch();
-</script>
-</body>
-</html>
+function renderCategories(){ $('categoryList').innerHTML=db.categories.length?db.categories.map(c=>`<div class="entry"><strong>${esc(c.name)}</strong><div class="meta">${c.subs.map(esc).join(' • ')||'Belum ada Sub'}</div><div class="row"><button class="small secondary" data-rename="${c.id}">Ubah nama</button><button class="small danger" data-catdel="${c.id}">Hapus</button></div></div>`).join(''):'<div class="empty">Belum ada kategori.</div>';categoryOptions()}
+function renderAll(){categoryOptions();renderCategories();refreshCategoryFilter();renderRecords();renderSearch()}
+function clearForm(){ $('recordForm').reset();$('recordId').value='';$('formTitle').textContent='Tambah data login';$('togglePass').textContent='Tampilkan password';$('pass').type='password';updateSubs()}
+$('category').onchange=updateSubs;$('searchBtn').addEventListener('click',()=>{try{runSearch()}catch(e){console.error(e);$('searchRecordList').innerHTML='<div class="empty">Pencarian gagal. Coba muat ulang halaman.</div>'}});$('search').addEventListener('input',()=>{searchMode='idle';searchResults=[];searchPage=1;renderSearch()});$('search').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();runSearch()}});$('showAllBtn').addEventListener('click',()=>{try{showAllRecords()}catch(e){console.error(e);$('searchRecordList').innerHTML='<div class="empty">Data tidak dapat ditampilkan. Coba muat ulang halaman.</div>'}});$('categoryFilter').addEventListener('change',()=>{if(searchMode==='all'||searchMode==='idle')showAllRecords();else if(searchMode==='query')runSearch()});$('favoritesFilter').addEventListener('click',()=>{favoritesOnly=!favoritesOnly;$('favoritesFilter').classList.toggle('active',favoritesOnly);$('favoritesFilter').setAttribute('aria-pressed',String(favoritesOnly));if(searchMode==='all'||searchMode==='idle')showAllRecords();else if(searchMode==='query')runSearch()});$('prevPage').onclick=()=>{if(searchPage>1){searchPage--;renderSearch()}};$('nextPage').onclick=()=>{const pages=Math.max(1,Math.ceil(searchResults.length/PAGE_SIZE));if(searchPage<pages){searchPage++;renderSearch()}};$('clearForm').onclick=clearForm;$('togglePass').onclick=()=>{$('pass').type=$('pass').type==='password'?'text':'password';$('togglePass').textContent=$('pass').type==='password'?'Tampilkan password':'Sembunyikan password'};
+$('recordForm').onsubmit=async e=>{e.preventDefault();const id=$('recordId').value||crypto.randomUUID();const r={id,categoryId:$('category').value,subcategory:$('subcategory').value,web:$('web').value.trim(),phone:$('phone').value.trim(),email:$('email').value.trim(),user:$('user').value.trim(),pass:$('pass').value,notes:$('notes').value.trim(),updatedAt:new Date().toISOString()};const i=db.records.findIndex(x=>x.id===id);if(i<0)db.records.unshift(r);else db.records[i]=r;await save();clearForm();renderAll();alert('Data berhasil disimpan.')};
+async function recordActions(e){const b=e.target.closest('button');if(!b)return;const r=db.records.find(x=>x.id===(b.dataset.fav||b.dataset.show||b.dataset.copy||b.dataset.edit||b.dataset.del));if(!r)return;if(b.dataset.fav){r.favorite=!r.favorite;await save();if(searchMode==='all')showAllRecords();else if(searchMode==='query')runSearch();else renderAll();return}else if(b.dataset.show){const el=$('pw-'+r.id);if(el)el.textContent=el.textContent==='••••••••'?(r.pass||''):'••••••••'}else if(b.dataset.copy){try{await navigator.clipboard.writeText(r.pass||'');alert('Password disalin.')}catch{alert('Clipboard tidak tersedia di konteks ini. Buka aplikasi melalui HTTPS atau salin secara manual setelah menampilkan password.')}}else if(b.dataset.edit){$('recordId').value=r.id;$('category').value=r.categoryId;updateSubs();$('subcategory').value=r.subcategory;$('web').value=r.web;$('phone').value=r.phone;$('email').value=r.email;$('user').value=r.user;$('pass').value=r.pass;$('notes').value=r.notes;$('formTitle').textContent='Edit data login';navigate('records');window.scrollTo({top:0,behavior:'smooth'});setTimeout(()=>$('category').focus({preventScroll:true}),250)}else if(b.dataset.del&&confirm('Hapus data login ini?')){db.records=db.records.filter(x=>x.id!==r.id);await save();renderAll()}}
+$('searchRecordList').onclick=recordActions;
+$('categoryForm').onsubmit=async e=>{e.preventDefault();const name=$('newCategory').value.trim();if(db.categories.some(c=>c.name.toLowerCase()===name.toLowerCase()))return alert('Kategori sudah ada.');db.categories.push({id:crypto.randomUUID(),name,subs:[]});$('newCategory').value='';await save();renderAll()};$('subForm').onsubmit=async e=>{e.preventDefault();const c=db.categories.find(c=>c.id===$('parentCategory').value),s=$('newSubcategory').value.trim();if(!c)return;if(c.subs.some(x=>x.toLowerCase()===s.toLowerCase()))return alert('Sub sudah ada.');c.subs.push(s);$('newSubcategory').value='';await save();renderAll()};
+$('categoryList').onclick=async e=>{const b=e.target.closest('button');if(!b)return;const c=db.categories.find(c=>c.id===(b.dataset.rename||b.dataset.catdel));if(!c)return;if(b.dataset.rename){const n=prompt('Nama kategori baru:',c.name)?.trim();if(n){c.name=n;await save();renderAll()}}else if(b.dataset.catdel&&confirm('Hapus kategori? Data login tidak dihapus, tetapi kategorinya akan tidak tersedia.')){db.categories=db.categories.filter(x=>x.id!==c.id);await save();renderAll()}};
+// Kalender Masehi + tanggal/pasaran Jawa (kalender Jawa Sultan Agung, epoch 1 Sura 1555 = 8 Juli 1633).
+let calendarView=new Date();calendarView=new Date(calendarView.getFullYear(),calendarView.getMonth(),1);
+const JAWA_MONTHS=['Sura','Sapar','Mulud','Bakda Mulud','Jumadilawal','Jumadilakir','Rejeb','Ruwah','Pasa','Sawal','Sela','Besar'];
+const JAWA_YEARS=['Alip','Ehe','Jimawal','Je','Dal','Be','Wawu','Jimakir'];
+const PASARAN=['Legi','Pahing','Pon','Wage','Kliwon'];
+const JAWA_EPOCH=Date.UTC(1633,6,8); // 1 Sura 1555, Jumat Legi
+function jawaYearLength(y){const n=JAWA_YEARS[(y-1555)%8];return 354+(['Ehe','Je','Jimakir'].includes(n)?1:0)}
+function jawaYearStart(y){let days=0;for(let yr=1555;yr<y;yr++)days+=jawaYearLength(yr);if(y>=1747)days-=2;return new Date(JAWA_EPOCH+days*86400000)}
+function javaneseDate(d){const target=Date.UTC(d.getFullYear(),d.getMonth(),d.getDate());let year=1555;while(jawaYearStart(year+1).getTime()<=target&&year<2200)year++;while(jawaYearStart(year).getTime()>target&&year>1555)year--;let day=Math.floor((target-jawaYearStart(year).getTime())/86400000);const lengths=[30,29,30,29,30,29,30,29,30,29,30,29];if(['Ehe','Je','Jimakir'].includes(JAWA_YEARS[(year-1555)%8]))lengths[11]=30;let month=0;while(month<11&&day>=lengths[month]){day-=lengths[month];month++}return {day:day+1,month:JAWA_MONTHS[month],year,yearName:JAWA_YEARS[(year-1555)%8]}}
+function javanesePasaran(d){const utc=Date.UTC(d.getFullYear(),d.getMonth(),d.getDate());const days=Math.round((utc-JAWA_EPOCH)/86400000);return PASARAN[((days%5)+5)%5]}
+function renderCalendar(){const year=calendarView.getFullYear(),month=calendarView.getMonth();$('calendarMonthTitle').textContent=new Intl.DateTimeFormat('id-ID',{month:'long',year:'numeric'}).format(calendarView);const first=new Date(year,month,1),offset=(first.getDay()+6)%7,total=new Date(year,month+1,0).getDate();let html='';for(let i=0;i<offset;i++){const d=new Date(year,month,1-offset+i);html+=calendarCell(d,true)}for(let day=1;day<=total;day++)html+=calendarCell(new Date(year,month,day),false);const cells=offset+total;const trailing=(7-cells%7)%7;for(let i=1;i<=trailing;i++)html+=calendarCell(new Date(year,month+1,i),true);$('calendarDays').innerHTML=html}
+function calendarCell(d,outside){const j=javaneseDate(d),now=new Date(),today=d.getFullYear()===now.getFullYear()&&d.getMonth()===now.getMonth()&&d.getDate()===now.getDate();return `<div class="calendar-day${outside?' outside':''}${today?' today':''}" aria-label="${d.getDate()} ${new Intl.DateTimeFormat('id-ID',{month:'long'}).format(d)}, ${j.day} ${j.month} ${j.year} Jawa, ${javanesePasaran(d)}"><div class="greg-date">${d.getDate()}</div><div class="jawa-date">${j.day} ${j.month}<br>${j.year} J</div><div class="pasaran">${javanesePasaran(d)}</div></div>`}
+$('calendarPrev').onclick=()=>{calendarView=new Date(calendarView.getFullYear(),calendarView.getMonth()-1,1);renderCalendar()};$('calendarNext').onclick=()=>{calendarView=new Date(calendarView.getFullYear(),calendarView.getMonth()+1,1);renderCalendar()};$('calendarToday').onclick=()=>{const n=new Date();calendarView=new Date(n.getFullYear(),n.getMonth(),1);renderCalendar()};
+function navigate(tab){document.querySelectorAll('.bottom-nav [data-tab]').forEach(x=>x.classList.toggle('active',x.dataset.tab===tab));document.querySelectorAll('.burger-menu [data-tab]').forEach(x=>x.classList.toggle('active',x.dataset.tab===tab));document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('hidden',x.id!=='tab-'+tab));$('burgerMenu').classList.add('hidden');$('burgerBtn').setAttribute('aria-expanded','false');if(tab==='searchPage'){searchMode='idle';searchResults=[];searchPage=1;$('search').value='';renderSearch()}if(tab==='calendar')renderCalendar();window.scrollTo({top:0,behavior:'smooth'})}document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>navigate(b.dataset.tab));$('burgerBtn').onclick=()=>{const open=$('burgerMenu').classList.toggle('hidden')===false;$('burgerBtn').setAttribute('aria-expanded',String(open))};document.addEventListener('click',e=>{if(!e.target.closest('.burger-wrap')){$('burgerMenu').classList.add('hidden');$('burgerBtn').setAttribute('aria-expanded','false')}});
+$('backupBtn').onclick=()=>{try{const blob=JSON.parse(localStorage.getItem(STORE));const data=new Blob([JSON.stringify(blob,null,2)],{type:'application/json'});const url=URL.createObjectURL(data),a=document.createElement('a');a.href=url;a.download='my-login-manager-backup-'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(url);$('backupStatus').textContent='File backup terenkripsi berhasil dibuat.'}catch(e){$('backupStatus').textContent='Backup gagal: '+e.message}};
+$('restoreBtn').onclick=async()=>{const file=$('backupFile').files[0];if(!file){$('restoreStatus').textContent='Pilih file backup terlebih dahulu.';return}if(!confirm('Restore akan mengganti seluruh data saat ini. Lanjutkan?'))return;try{const blob=JSON.parse(await file.text());const restored=await decryptObject(blob,$('pin').dataset.activePin);if(!Array.isArray(restored.records)||!Array.isArray(restored.categories))throw Error('Struktur data tidak valid.');db=restored;await save();renderAll();$('restoreStatus').textContent='Restore berhasil.'}catch(e){$('restoreStatus').textContent='Restore gagal. Pastikan file benar dan dibuat dengan PIN aplikasi yang sama.'}};
+$('deleteAllBtn').onclick=async()=>{if(confirm('Yakin menghapus SEMUA data login dan kategori?')){db={records:[],categories:[]};await save();renderAll();alert('Semua data telah dihapus.')}};
+})();
+</script></body></html>
