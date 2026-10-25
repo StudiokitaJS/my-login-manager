@@ -12,3 +12,6 @@
 .menu button svg{width:19px;height:19px;flex:0 0 19px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 .menu button .menu-label{flex:1}
 @media(min-width:600px){.business-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+.home-brand{border:0;background:transparent;color:inherit;padding:0;text-align:left;min-width:0}
+.home-brand .logo svg{display:block}
