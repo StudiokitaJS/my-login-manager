@@ -15,3 +15,6 @@
 
 .home-brand{border:0;background:transparent;color:inherit;padding:0;text-align:left;min-width:0}
 .home-brand .logo svg{display:block}
+.report-chart-host{width:100%;overflow:hidden}
+.report-point-details{display:none;margin:10px 0 0;background:#f8faff;box-shadow:none}
+.danger-text-btn{color:#b42318;border-color:#f3c5c5}
