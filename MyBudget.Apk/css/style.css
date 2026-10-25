@@ -24,3 +24,19 @@
 .grip svg{width:18px;height:18px;display:block;fill:none;stroke:currentColor;stroke-width:1.7}
 .inline-icon{width:16px;height:16px;vertical-align:-3px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 .calc-btn svg{width:22px;height:22px;display:block;margin:auto;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+
+/* Privasi saldo, aksi cepat rekening, dan halaman My IP */
+.balance-value-row{display:flex;align-items:center;gap:10px;min-width:0}
+.balance-value-row .total-value{flex:1;min-width:0;overflow-wrap:anywhere}
+.balance-toggle{display:grid;place-items:center;flex:0 0 38px;width:38px;height:38px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--muted)}
+.balance-toggle svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.quick-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:0 0 16px}
+.quick-action{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-width:0;min-height:105px;padding:12px 5px;border:1px solid var(--line);border-radius:16px;background:#fff;color:var(--ink);font-size:11px;font-weight:700;text-align:center;line-height:1.35;box-shadow:var(--shadow)}
+.quick-action-icon{display:grid;place-items:center;width:42px;height:42px;border-radius:13px;background:var(--soft);color:var(--primary)}
+.quick-action-icon svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ip-main{font-size:clamp(22px,6vw,32px);overflow-wrap:anywhere}
+.ip-details{display:grid;gap:0}
+.ip-row{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding:12px 0;border-bottom:1px solid var(--line);font-size:13px}
+.ip-row:last-child{border-bottom:0}
+.ip-row span{color:var(--muted);flex:0 0 42%}
+.ip-row strong{text-align:right;overflow-wrap:anywhere;word-break:break-word;max-width:58%}
