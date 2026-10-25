@@ -51,3 +51,5 @@
 
 /* Pada halaman Laporan Bulanan, grafik hanya muncul melalui ikon Grafik Rekening */
 #reportPage:not(.report-chart-only) .card:has(#reportChart){display:none!important}
+
+.salary-quick-actions{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:-4px}.salary-quick-actions .quick-action{grid-column:1/-1;min-height:82px}.salary-quick-actions .quick-action-icon svg{display:block;width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}#salaryHistoryCard[hidden]{display:none!important}#salaryHistoryList .account{align-items:flex-start}.page-title .ip-section-icon{margin-right:4px}
