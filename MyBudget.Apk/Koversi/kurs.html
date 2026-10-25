@@ -12,9 +12,9 @@
 <header class="top"><button class="back" id="backBtn" aria-label="Kembali">‹</button><div class="brand">MyBudget <span style="color:var(--muted);font-weight:500">/ Kurs</span></div><span class="pill">KONVERTER</span></header>
 <section class="intro"><h1>Konverter mata uang</h1><p>Konversi MYR, USD, dan IDR secara langsung dengan kurs indikatif terbaru.</p></section>
 <section class="card"><div class="card-head"><h2>Masukkan nominal</h2><span class="small">Maks. 12 digit</span></div>
-<div class="money active" data-currency="MYR"><label for="myrInput"><span class="flag">MYR</span> Ringgit Malaysia</label><input id="myrInput" inputmode="none" autocomplete="off" readonly aria-label="Nominal Ringgit Malaysia" placeholder="0"><div class="choose">Ketuk untuk memasukkan nominal</div></div>
+<div class="money active" data-currency="IDR"><label for="idrInput"><span class="flag">IDR</span> Rupiah Indonesia</label><input id="idrInput" inputmode="none" autocomplete="off" readonly aria-label="Nominal Rupiah Indonesia" placeholder="0"><div class="choose">Ketuk untuk memasukkan nominal</div></div>
+<div class="money" data-currency="MYR"><label for="myrInput"><span class="flag">MYR</span> Ringgit Malaysia</label><input id="myrInput" inputmode="none" autocomplete="off" readonly aria-label="Nominal Ringgit Malaysia" placeholder="0"><div class="choose">Ketuk untuk memasukkan nominal</div></div>
 <div class="money" data-currency="USD"><label for="usdInput"><span class="flag">USD</span> Dolar Amerika Serikat</label><input id="usdInput" inputmode="none" autocomplete="off" readonly aria-label="Nominal Dolar Amerika Serikat" placeholder="0"><div class="choose">Ketuk untuk memasukkan nominal</div></div>
-<div class="money" data-currency="IDR"><label for="idrInput"><span class="flag">IDR</span> Rupiah Indonesia</label><input id="idrInput" inputmode="none" autocomplete="off" readonly aria-label="Nominal Rupiah Indonesia" placeholder="0"><div class="choose">Ketuk untuk memasukkan nominal</div></div>
 <button class="update" id="updateBtn">↻ Update kurs</button>
 <div class="keyboard" id="keyboard" aria-label="Keyboard angka">
 <button class="key" data-key="1">1</button><button class="key" data-key="2">2</button><button class="key" data-key="3">3</button>
@@ -27,32 +27,77 @@
 </main>
 <script>
 (()=>{'use strict';
-const $=id=>document.getElementById(id),CACHE='mybudget_fx_rates_v1',MAX=12;
-let active='MYR',raw={MYR:'',USD:'',IDR:''},rates={usdIdr:16000,usdMyr:4.7,updatedAt:null,source:'fallback'};
-const inputIds={MYR:'myrInput',USD:'usdInput',IDR:'idrInput'};
+const $=id=>document.getElementById(id),CACHE='mybudget_fx_rates_v1',MAX=16;
+let active='IDR',raw={IDR:'',MYR:'',USD:''},rates={usdIdr:16000,usdMyr:4.7,updatedAt:null,source:'fallback'};
+const inputIds={IDR:'idrInput',MYR:'myrInput',USD:'usdInput'};
 function digits(s){return String(s||'').replace(/\D/g,'').slice(0,MAX)}
-function fmt(s){if(!s)return '';try{return BigInt(s).toLocaleString('id-ID')}catch{return ''}}
+function fmtInt(s){if(!s)return '';try{return BigInt(s).toLocaleString('id-ID')}catch{return ''}}
+function fmtCents(cents){const whole=cents/100n,decimal=(cents%100n).toString().padStart(2,'0');return whole.toLocaleString('id-ID')+','+decimal}
 function parseRate(n){if(!Number.isFinite(n)||n<=0)throw Error('Kurs tidak valid');return BigInt(Math.round(n*1000000))}
 function roundDiv(n,d){if(d<=0n)return 0n;return (n+d/2n)/d}
-function getScaledRates(){return {idr:parseRate(rates.usdIdr),myr:parseRate(rates.usdMyr)}}
-function convert(value,from,to){if(!value)return '';const amount=BigInt(value),r=getScaledRates(),S=1000000n;let n=amount,d=1n;
- if(from===to)return fmt(value);
- // Rates are represented as integer millionths of the currency per USD.
- if(from==='USD'&&to==='IDR'){n=amount*r.idr;d=S}
- else if(from==='USD'&&to==='MYR'){n=amount*r.myr;d=S}
- else if(from==='MYR'&&to==='USD'){n=amount*S;d=r.myr}
- else if(from==='IDR'&&to==='USD'){n=amount*S;d=r.idr}
- else if(from==='MYR'&&to==='IDR'){n=amount*r.idr;d=r.myr}
- else if(from==='IDR'&&to==='MYR'){n=amount*r.myr;d=r.idr}
- return fmt(roundDiv(n,d).toString())}
-function renderInputs(){for(const cur of ['MYR','USD','IDR'])$(inputIds[cur]).value=fmt(raw[cur]);document.querySelectorAll('.money').forEach(el=>el.classList.toggle('active',el.dataset.currency===active))}
-function calculate(){const source=raw[active];for(const cur of ['MYR','USD','IDR']){if(cur===active)continue;raw[cur]=convert(source,active,cur)}renderInputs()}
+function convertedCents(value,from,to){
+ if(!value)return null;
+ const amount=BigInt(value),rIdr=parseRate(rates.usdIdr),rMyr=parseRate(rates.usdMyr),S=1000000n;
+ if(from===to)return amount*100n;
+ let n,d;
+ if(from==='USD'&&to==='IDR'){n=amount*rIdr*100n;d=S}
+ else if(from==='USD'&&to==='MYR'){n=amount*rMyr*100n;d=S}
+ else if(from==='MYR'&&to==='USD'){n=amount*S*100n;d=rMyr}
+ else if(from==='IDR'&&to==='USD'){n=amount*S*100n;d=rIdr}
+ else if(from==='MYR'&&to==='IDR'){n=amount*rIdr*100n;d=rMyr}
+ else if(from==='IDR'&&to==='MYR'){n=amount*rMyr*100n;d=rIdr}
+ else return amount*100n;
+ return roundDiv(n,d)
+}
+function renderInputs(){
+ for(const cur of ['IDR','MYR','USD']){
+  const input=$(inputIds[cur]);
+  if(cur===active)input.value=fmtInt(raw[cur]);
+  else {const cents=convertedCents(raw[active],active,cur);input.value=cents===null?'':fmtCents(cents)}
+ }
+ document.querySelectorAll('.money').forEach(el=>el.classList.toggle('active',el.dataset.currency===active))
+}
+function calculate(){renderInputs()}
 function setStatus(msg,kind=''){const el=$('status');el.textContent=msg;el.className='status'+(kind?' '+kind:'')}
-function renderRates(){try{$('myrRate').textContent=fmt(String(Math.round(rates.usdIdr/rates.usdMyr)))+' IDR';$('usdRate').textContent=fmt(String(Math.round(rates.usdIdr)))+' IDR'}catch{$('myrRate').textContent='— IDR';$('usdRate').textContent='— IDR'}$('updatedAt').textContent=rates.updatedAt?'Pembaruan terakhir: '+new Date(rates.updatedAt).toLocaleString('id-ID'):'Kurs bawaan sementara; belum ada waktu pembaruan.';calculate()}
+function renderRates(){
+ try{$('myrRate').textContent=fmtInt(String(Math.round(rates.usdIdr/rates.usdMyr)))+' IDR';$('usdRate').textContent=fmtInt(String(Math.round(rates.usdIdr)))+' IDR'}
+ catch{$('myrRate').textContent='— IDR';$('usdRate').textContent='— IDR'}
+ $('updatedAt').textContent=rates.updatedAt?'Pembaruan terakhir: '+new Date(rates.updatedAt).toLocaleString('id-ID'):'Kurs bawaan sementara; belum ada waktu pembaruan.';
+ calculate()
+}
 function loadCache(){try{const x=JSON.parse(localStorage.getItem(CACHE)||'null');if(x&&Number.isFinite(x.usdIdr)&&Number.isFinite(x.usdMyr)&&x.usdIdr>0&&x.usdMyr>0)rates={...rates,...x}}catch{}renderRates()}
-async function updateRates(){const btn=$('updateBtn');if(btn.disabled)return;btn.disabled=true;btn.textContent='↻ Memperbarui…';setStatus('Mengambil nilai tukar terbaru…');try{const ctrl=new AbortController(),timer=setTimeout(()=>ctrl.abort(),10000);let response;try{response=await fetch('https://open.er-api.com/v6/latest/USD',{cache:'no-store',signal:ctrl.signal})}finally{clearTimeout(timer)}if(!response.ok)throw Error('HTTP '+response.status);const data=await response.json();if(data.result!=='success'||!data.rates||!Number.isFinite(data.rates.IDR)||!Number.isFinite(data.rates.MYR))throw Error('Respons kurs tidak valid');rates={usdIdr:data.rates.IDR,usdMyr:data.rates.MYR,updatedAt:data.time_last_update_utc||new Date().toISOString(),source:'online'};localStorage.setItem(CACHE,JSON.stringify(rates));renderRates();setStatus('Kurs berhasil diperbarui.','success')}catch(e){setStatus('Pembaruan gagal. Kurs terakhir yang tersedia tetap digunakan; periksa koneksi internet.','error')}finally{btn.disabled=false;btn.textContent='↻ Update kurs'}}
-document.querySelectorAll('.money').forEach(el=>{el.addEventListener('click',()=>{active=el.dataset.currency;$('keyboard').classList.add('show');renderInputs()})});
-$('keyboard').addEventListener('click',e=>{const btn=e.target.closest('[data-key]');if(!btn)return;const k=btn.dataset.key;if(k==='ok'){$('keyboard').classList.remove('show');return}if(k==='delete')raw[active]=raw[active].slice(0,-1);else if(raw[active].length<MAX)raw[active]+=k;calculate()});
-$('updateBtn').addEventListener('click',updateRates);$('backBtn').addEventListener('click',()=>{if(history.length>1)history.back();else location.href='index.html'});loadCache();updateRates();
+async function updateRates(){
+ const btn=$('updateBtn');if(btn.disabled)return;btn.disabled=true;btn.textContent='↻ Memperbarui…';setStatus('Mengambil nilai tukar terbaru…');
+ try{
+  const ctrl=new AbortController(),timer=setTimeout(()=>ctrl.abort(),10000);let response;
+  try{response=await fetch('https://open.er-api.com/v6/latest/USD',{cache:'no-store',signal:ctrl.signal})}finally{clearTimeout(timer)}
+  if(!response.ok)throw Error('HTTP '+response.status);
+  const data=await response.json();
+  if(data.result!=='success'||!data.rates||!Number.isFinite(data.rates.IDR)||!Number.isFinite(data.rates.MYR))throw Error('Respons kurs tidak valid');
+  rates={usdIdr:data.rates.IDR,usdMyr:data.rates.MYR,updatedAt:data.time_last_update_utc||new Date().toISOString(),source:'online'};
+  localStorage.setItem(CACHE,JSON.stringify(rates));renderRates();setStatus('Kurs berhasil diperbarui.','success')
+ }catch(e){setStatus('Pembaruan gagal. Kurs terakhir yang tersedia tetap digunakan; periksa koneksi internet.','error')}
+ finally{btn.disabled=false;btn.textContent='↻ Update kurs'}
+}
+document.querySelectorAll('.money').forEach(el=>el.addEventListener('click',()=>{
+ const selected=el.dataset.currency;
+ if(selected!==active){
+  const previous=raw[active];
+  const cents=convertedCents(previous,active,selected);
+  active=selected;
+  raw[active]=cents===null?'':(cents/100n).toString();
+ }
+ $('keyboard').classList.add('show');renderInputs()
+}));
+$('keyboard').addEventListener('click',e=>{
+ const btn=e.target.closest('[data-key]');if(!btn)return;const k=btn.dataset.key;
+ if(k==='ok'){$('keyboard').classList.remove('show');return}
+ if(k==='delete')raw[active]=raw[active].slice(0,-1);
+ else if(/^\d$/.test(k)&&raw[active].length<MAX)raw[active]+=k;
+ calculate()
+});
+$('updateBtn').addEventListener('click',updateRates);
+$('backBtn').addEventListener('click',()=>{if(history.length>1)history.back();else location.href='../index.html'});
+loadCache();updateRates();
 })();
 </script></body></html>
