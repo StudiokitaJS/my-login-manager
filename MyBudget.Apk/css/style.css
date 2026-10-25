@@ -48,3 +48,6 @@
 #reportPage.report-chart-only .sub{display:none}
 #reportPage.report-chart-only .card:has(#reportChart){margin-top:10px}
 .ip-section-icon{width:19px;height:19px;vertical-align:-4px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+
+/* Pada halaman Laporan Bulanan, grafik hanya muncul melalui ikon Grafik Rekening */
+#reportPage:not(.report-chart-only) .card:has(#reportChart){display:none!important}
