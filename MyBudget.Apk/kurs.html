@@ -32,7 +32,7 @@ let active='MYR',raw={MYR:'',USD:'',IDR:''},rates={usdIdr:16000,usdMyr:4.7,updat
 const inputIds={MYR:'myrInput',USD:'usdInput',IDR:'idrInput'};
 function digits(s){return String(s||'').replace(/\D/g,'').slice(0,MAX)}
 function fmt(s){if(!s)return '';try{return BigInt(s).toLocaleString('id-ID')}catch{return ''}}
-function parseRate(n){if(!Number.isFinite(n)||n<=0)throw Error('Kurs tidak valid');const str=String(n),parts=str.toLowerCase().split('e'),base=parts[0],exp=parts[1]?Number(parts[1]):0,bits=base.split('.'),fraction=(bits[1]||'').length,scale=Math.max(0,6+exp-fraction),num=BigInt(bits.join(''))*10n**BigInt(scale),den=10n**BigInt(Math.max(0,6+exp));if(den===0n)return 0n;return num/den}
+function parseRate(n){if(!Number.isFinite(n)||n<=0)throw Error('Kurs tidak valid');return BigInt(Math.round(n*1000000))}
 function roundDiv(n,d){if(d<=0n)return 0n;return (n+d/2n)/d}
 function getScaledRates(){return {idr:parseRate(rates.usdIdr),myr:parseRate(rates.usdMyr)}}
 function convert(value,from,to){if(!value)return '';const amount=BigInt(value),r=getScaledRates(),S=1000000n;let n=amount,d=1n;
