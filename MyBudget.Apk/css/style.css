@@ -18,3 +18,5 @@
 .report-chart-host{width:100%;overflow:hidden}
 .report-point-details{display:none;margin:10px 0 0;background:#f8faff;box-shadow:none}
 .danger-text-btn{color:#b42318;border-color:#f3c5c5}
+.calc-use-btn{margin-top:12px}
+.message-text{color:var(--muted);line-height:1.6}
