@@ -53,3 +53,13 @@
 #reportPage:not(.report-chart-only) .card:has(#reportChart){display:none!important}
 
 .salary-quick-actions{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:-4px}.salary-quick-actions .quick-action{grid-column:1/-1;min-height:82px}.salary-quick-actions .quick-action-icon svg{display:block;width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}#salaryHistoryCard[hidden]{display:none!important}#salaryHistoryList .account{align-items:flex-start}.page-title .ip-section-icon{margin-right:4px}
+
+.currency-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.currency-choice{position:relative;display:block;cursor:pointer;margin:0!important}
+.currency-choice input{position:absolute;opacity:0;inset:0;width:100%;height:100%;cursor:pointer}
+.currency-choice span{display:flex;align-items:center;justify-content:center;min-height:43px;border:1px solid #dfe4ed;border-radius:12px;background:#fbfcfe;color:#475467;font-size:12px;font-weight:750;padding:8px 5px;text-align:center}
+.currency-choice input:checked+span{border-color:var(--primary);background:var(--soft);color:var(--primary);box-shadow:0 0 0 2px #315efb14}
+.currency-choice input:focus-visible+span{outline:2px solid var(--primary);outline-offset:2px}
+.field input:disabled{background:#edf0f5;color:#98a2b3;cursor:not-allowed}
+#currencyHint{margin-top:6px}
+@media(max-width:360px){.currency-options{gap:5px}.currency-choice span{font-size:11px}}
