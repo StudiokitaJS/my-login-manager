@@ -63,3 +63,12 @@
 .field input:disabled{background:#edf0f5;color:#98a2b3;cursor:not-allowed}
 #currencyHint{margin-top:6px}
 @media(max-width:360px){.currency-options{gap:5px}.currency-choice span{font-size:11px}}
+
+/* Menu utama per halaman: maksimal 9 ikon, geser horizontal untuk halaman berikutnya */
+.business-grid{display:flex!important;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;overscroll-behavior-x:contain;scrollbar-width:none;gap:0;padding-bottom:2px;-webkit-overflow-scrolling:touch}
+.business-grid::-webkit-scrollbar{display:none}
+.business-page{flex:0 0 100%;min-width:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(3,minmax(96px,auto));gap:10px;padding:0 1px;scroll-snap-align:start;scroll-snap-stop:always}
+.business-page .business-item{width:100%;min-width:0}
+.menu-pagination{display:flex;justify-content:center;align-items:center;gap:6px;padding:10px 0 2px}
+.menu-dot{width:6px;height:6px;border-radius:99px;background:#cbd2e1;transition:width .2s,background .2s}
+.menu-dot.active{width:18px;background:var(--primary)}
