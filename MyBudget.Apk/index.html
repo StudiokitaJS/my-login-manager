@@ -22,6 +22,6 @@
 <div class="toast" id="toast"></div>
 <script type="module">
 const pageFiles=['pages/beranda/index.html','pages/rekening/index.html','pages/tambah-rekening/index.html','pages/laporan-bulanan/index.html','pages/sallary/index.html','pages/setting/index.html','pages/about/index.html','pages/my-ip/index.html'];
-try{const html=await Promise.all(pageFiles.map(async path=>{const response=await fetch(path+'?v=percent1027');if(!response.ok)throw new Error('Gagal memuat '+path);return response.text()}));document.getElementById('pageMount').innerHTML=html.join('\n');history.replaceState({mybudgetPage:'home'},'',location.pathname+'#home');await import('./js/app.js?v=percent1027')}catch(error){document.getElementById('pageMount').innerHTML='<section class="card"><h2>Halaman gagal dimuat</h2><p class="hint">Periksa koneksi dan struktur folder halaman, lalu muat ulang.</p></section>';console.error(error)}
+try{const html=await Promise.all(pageFiles.map(async path=>{const response=await fetch(path+'?v=percent1028');if(!response.ok)throw new Error('Gagal memuat '+path);return response.text()}));document.getElementById('pageMount').innerHTML=html.join('\n');history.replaceState({mybudgetPage:'home'},'',location.pathname+'#home');await import('./js/app.js?v=percent1028')}catch(error){document.getElementById('pageMount').innerHTML='<section class="card"><h2>Halaman gagal dimuat</h2><p class="hint">Periksa koneksi dan struktur folder halaman, lalu muat ulang.</p></section>';console.error(error)}
 </script>
 </body></html>
