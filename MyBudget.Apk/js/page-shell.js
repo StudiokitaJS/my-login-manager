@@ -2,10 +2,7 @@
 if(document.getElementById('mybudgetSharedHeader'))return;
 const root='../../',menuItems=[
 ['Beranda','../../index.html'],
-['Rekening','../rekening/index.html'],
-['Tambah Rekening','../tambah-rekening/index.html'],
 ['Setting','../setting/index.html'],
-['My IP','../my-ip/index.html'],
 ['About','../about/index.html']
 ];
 const style=document.createElement('style');style.id='mybudgetSharedShellStyle';style.textContent=`
