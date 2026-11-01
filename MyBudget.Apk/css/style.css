@@ -72,3 +72,11 @@
 .menu-pagination{display:flex;justify-content:center;align-items:center;gap:6px;padding:10px 0 2px}
 .menu-dot{width:6px;height:6px;border-radius:99px;background:#cbd2e1;transition:width .2s,background .2s}
 .menu-dot.active{width:18px;background:var(--primary)}
+
+
+/* Form transfer memakai kartu dan posisi seperti form tambah rekening */
+#transferOverlay{align-items:center}
+#transferOverlay .transfer-card{width:100%;max-width:440px;max-height:90dvh;overflow-y:auto;margin:0;padding:18px}
+#transferOverlay .section-head{margin-bottom:10px}
+#transferOverlay .close{width:34px;height:34px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--muted);font-size:22px;line-height:1}
+#transferOverlay .transfer-card>.badge{display:inline-flex;margin-bottom:8px}
