@@ -1,0 +1,21 @@
+{
+  "id": "./",
+  "name": "MyBudget",
+  "short_name": "MyBudget",
+  "description": "Aplikasi pengelola keuangan pribadi.",
+  "lang": "id",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f5f7fb",
+  "theme_color": "#f5f7fb",
+  "icons": [
+    {
+      "src": "./icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
