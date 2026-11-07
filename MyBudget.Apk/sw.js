@@ -1,13 +1,13 @@
 'use strict';
 
-const CACHE_NAME = 'mybudget-pwa-v3';
+const CACHE_NAME = 'mybudget-pwa-v4';
 const APP_SHELL = [
   './',
   './index.html',
   './manifest.webmanifest',
   './icons/icon.svg',
   './css/style.css?v=home-grid-3x9-20261107',
-  './js/app.js?v=home-grid-3x9-20261107',
+  './js/app.js?v=fix-null-homecount-20261107',
   './js/page-shell.js?v=home-grid-3x9-20261107',
   './pages/beranda/index.html?v=home-grid-3x9-20261107',
   './pages/rekening/index.html?v=home-grid-3x9-20261107',
