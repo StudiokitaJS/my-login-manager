@@ -12,7 +12,7 @@
   <link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="./icons/icon.svg">
   <title>MyBudget</title>
-  <link rel="stylesheet" href="css/style.css?v=transferfix2">
+  <link rel="stylesheet" href="css/style.css?v=home-grid-3x9-20261107">
 </head>
 <body>
   <main class="app">
@@ -162,7 +162,7 @@
     async function startApp() {
       try {
         const pages = await Promise.all(pageFiles.map(async (path) => {
-          const response = await fetch(path + '?v=home-layout-20261107');
+          const response = await fetch(path + '?v=home-grid-3x9-20261107');
           if (!response.ok) {
             throw new Error('Gagal memuat ' + path + ' (HTTP ' + response.status + ')');
           }
