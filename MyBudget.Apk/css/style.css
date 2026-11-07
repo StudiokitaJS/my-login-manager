@@ -80,3 +80,8 @@
 #transferOverlay .section-head{margin-bottom:10px}
 #transferOverlay .close{width:34px;height:34px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--muted);font-size:22px;line-height:1}
 #transferOverlay .transfer-card>.badge{display:inline-flex;margin-bottom:8px}
+
+/* Beranda: grid 3 kolom x hingga 9 baris, tanpa geser/paginasi */
+#homePage .business-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:minmax(96px,auto);gap:10px;overflow:visible;scroll-snap-type:none;padding:0}
+#homePage .business-page{display:contents}
+#homePage .menu-pagination,#homePage .total-card{display:none!important}
