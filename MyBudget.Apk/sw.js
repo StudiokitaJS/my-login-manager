@@ -1,22 +1,22 @@
 'use strict';
 
-const CACHE_NAME = 'mybudget-pwa-v2';
+const CACHE_NAME = 'mybudget-pwa-v3';
 const APP_SHELL = [
   './',
   './index.html',
   './manifest.webmanifest',
   './icons/icon.svg',
-  './css/style.css?v=transferfix2',
-  './js/app.js?v=bitcoin-outline-fix-20261107',
-  './js/page-shell.js?v=home-layout-20261107',
-  './pages/beranda/index.html?v=home-layout-20261107',
-  './pages/rekening/index.html?v=home-layout-20261107',
-  './pages/tambah-rekening/index.html?v=home-layout-20261107',
-  './pages/laporan-bulanan/index.html?v=home-layout-20261107',
-  './pages/sallary/index.html?v=home-layout-20261107',
-  './pages/setting/index.html?v=home-layout-20261107',
-  './pages/about/index.html?v=home-layout-20261107',
-  './pages/my-ip/index.html?v=home-layout-20261107'
+  './css/style.css?v=home-grid-3x9-20261107',
+  './js/app.js?v=home-grid-3x9-20261107',
+  './js/page-shell.js?v=home-grid-3x9-20261107',
+  './pages/beranda/index.html?v=home-grid-3x9-20261107',
+  './pages/rekening/index.html?v=home-grid-3x9-20261107',
+  './pages/tambah-rekening/index.html?v=home-grid-3x9-20261107',
+  './pages/laporan-bulanan/index.html?v=home-grid-3x9-20261107',
+  './pages/sallary/index.html?v=home-grid-3x9-20261107',
+  './pages/setting/index.html?v=home-grid-3x9-20261107',
+  './pages/about/index.html?v=home-grid-3x9-20261107',
+  './pages/my-ip/index.html?v=home-grid-3x9-20261107'
 ];
 
 self.addEventListener('install', event => {
