@@ -173,7 +173,7 @@
         history.replaceState({ mybudgetPage: 'home' }, '', location.pathname + '#home');
 
         try {
-          await import('./js/app.js?v=home-grid-3x9-20261107');
+          await import('./js/app.js?v=fix-null-homecount-20261107');
         } catch (error) {
           throw new Error('JavaScript aplikasi bermasalah: ' + (error.message || error));
         }
