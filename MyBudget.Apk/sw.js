@@ -1,6 +1,6 @@
 'use strict';
 
-const CACHE_NAME = 'mybudget-pwa-v4';
+const CACHE_NAME = 'mybudget-pwa-v5';
 const APP_SHELL = [
   './',
   './index.html',
