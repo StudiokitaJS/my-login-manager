@@ -1,6 +1,6 @@
 'use strict';
 
-const CACHE_NAME = 'mybudget-pwa-v5';
+const CACHE_NAME = 'mybudget-pwa-v6';
 const APP_SHELL = [
   './',
   './index.html',
@@ -16,7 +16,8 @@ const APP_SHELL = [
   './pages/sallary/index.html?v=home-grid-3x9-20261107',
   './pages/setting/index.html?v=home-grid-3x9-20261107',
   './pages/about/index.html?v=home-grid-3x9-20261107',
-  './pages/my-ip/index.html?v=home-grid-3x9-20261107'
+  './pages/my-ip/index.html?v=home-grid-3x9-20261107',
+  './pages/budget-bulanan/index.html?v=category-chart-20261108'
 ];
 
 self.addEventListener('install', event => {
