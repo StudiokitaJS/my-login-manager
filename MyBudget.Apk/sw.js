@@ -1,6 +1,6 @@
 'use strict';
 
-const CACHE_NAME = 'mybudget-pwa-v15';
+const CACHE_NAME = 'mybudget-pwa-v16';
 const APP_SHELL = [
   './',
   './index.html',
@@ -18,7 +18,7 @@ const APP_SHELL = [
   './pages/about/index.html?v=home-grid-3x9-20261107',
   './pages/my-ip/index.html?v=home-grid-3x9-20261107',
   './pages/budget-bulanan/index.html?v=category-chart-20261108',
-  './pages/mymemo/index.html?v=memo-date-align-20261109',
+  './pages/mymemo/index.html?v=memo-date-align-14px-20261109',
   './pages/setting/index.html?v=unified-backup-20261109'
 ];
 
