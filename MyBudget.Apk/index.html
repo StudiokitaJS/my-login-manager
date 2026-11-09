@@ -12,7 +12,7 @@
   <link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="./icons/icon.svg">
   <title>MyBudget</title>
-  <link rel="stylesheet" href="css/style.css?v=home-grid-3x9-20261107">
+  <link rel="stylesheet" href="css/style.css?v=unified-backup-memo-20261109">
 </head>
 <body>
   <main class="app">
@@ -162,7 +162,7 @@
     async function startApp() {
       try {
         const pages = await Promise.all(pageFiles.map(async (path) => {
-          const response = await fetch(path + '?v=home-grid-3x9-20261107');
+          const response = await fetch(path + '?v=unified-backup-memo-20261109');
           if (!response.ok) {
             throw new Error('Gagal memuat ' + path + ' (HTTP ' + response.status + ')');
           }
@@ -173,7 +173,7 @@
         history.replaceState({ mybudgetPage: 'home' }, '', location.pathname + '#home');
 
         try {
-          await import('./js/app.js?v=fix-null-homecount-20261107');
+          await import('./js/app.js?v=unified-backup-memo-20261109');
         } catch (error) {
           throw new Error('JavaScript aplikasi bermasalah: ' + (error.message || error));
         }
