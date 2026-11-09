@@ -85,3 +85,6 @@
 #homePage .business-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:minmax(96px,auto);gap:10px;overflow:visible;scroll-snap-type:none;padding:0}
 #homePage .business-page{display:contents}
 #homePage .menu-pagination,#homePage .total-card{display:none!important}
+
+/* Perkecil tombol ikon mata saldo rekening */
+.balance-toggle{flex-basis:30px;width:30px;height:30px;border-radius:9px;padding:4px}.balance-toggle svg{width:16px;height:16px}
