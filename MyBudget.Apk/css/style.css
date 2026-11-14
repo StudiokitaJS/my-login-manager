@@ -88,3 +88,27 @@
 
 /* Perkecil tombol ikon mata saldo rekening */
 .balance-toggle{flex-basis:30px;width:30px;height:30px;border-radius:9px;padding:4px}.balance-toggle svg{width:16px;height:16px}
+
+/* Convert Manual */
+.quick-actions{grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}
+.quick-action{min-height:68px;padding:6px 2px;gap:3px;font-size:9px;border-radius:11px}
+.quick-action-icon{width:27px;height:27px;border-radius:9px}
+.quick-action-icon svg{width:17px;height:17px}
+#convertPage .field select{width:100%;height:47px;border:1px solid #dfe4ed;border-radius:12px;padding:0 12px;background:#fbfcfe;color:var(--ink);outline:none}
+#convertPage .field select:focus{border-color:var(--primary);box-shadow:0 0 0 3px #315efb1a}
+.convert-arrow{display:flex;justify-content:center;margin:-5px 0 12px;color:var(--primary)}
+.convert-arrow svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.convert-report-wrap{width:100%;overflow-x:auto}
+.convert-report{width:100%;border-collapse:collapse;table-layout:fixed;font-size:11px}
+.convert-report th{text-align:left;color:var(--muted);font-weight:750;padding:8px 4px;border-bottom:1px solid var(--line)}
+.convert-report td{padding:10px 4px;border-bottom:1px solid var(--line);vertical-align:middle}
+.convert-report tr:last-child td{border-bottom:0}
+.convert-report th:first-child,.convert-report td:first-child{width:25%}
+.convert-report th:last-child,.convert-report td:last-child{width:34px;text-align:center}
+.convert-date{font-weight:700;line-height:1.4;overflow-wrap:anywhere}
+.convert-detail{min-width:0;overflow-wrap:anywhere;line-height:1.55}
+.convert-detail span{display:block}
+.convert-detail span:first-child{font-weight:750;color:var(--ink)}
+.convert-detail span:last-child{font-size:10px;color:var(--muted)}
+.convert-delete{width:28px;height:30px}
+.convert-delete svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
