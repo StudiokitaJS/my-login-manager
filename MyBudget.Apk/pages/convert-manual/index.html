@@ -1,0 +1,22 @@
+<section id="convertPage" class="page">
+  <h1 class="page-title">Convert Manual</h1>
+  <p class="sub">Pindahkan saldo antar rekening dengan nominal mata uang masing-masing.</p>
+  <section class="card">
+    <div class="section-head"><h2>Input Convert</h2><span class="badge">MANUAL</span></div>
+    <form id="convertForm">
+      <div class="field"><label for="convertDate">Tanggal</label><input id="convertDate" type="date" required></div>
+      <div class="field"><label for="convertFrom">Rekening Asal</label><select id="convertFrom" required></select></div>
+      <div class="field"><label for="convertFromAmount">Nominal Rekening Asal</label><input id="convertFromAmount" type="text" inputmode="decimal" autocomplete="off" placeholder="0" required></div>
+      <div class="convert-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4v15m-6-6 6 6 6-6"/></svg></div>
+      <div class="field"><label for="convertTo">Rekening Tujuan</label><select id="convertTo" required></select></div>
+      <div class="field"><label for="convertToAmount">Nominal Rekening Tujuan</label><input id="convertToAmount" type="text" inputmode="decimal" autocomplete="off" placeholder="0" required></div>
+      <div class="form-actions"><button class="primary-btn" type="submit">Simpan</button><button class="secondary-btn" id="cancelConvert" type="button">Batal</button></div>
+    </form>
+    <p class="hint">Nominal asal akan mengurangi saldo rekening asal. Nominal tujuan akan menambah saldo rekening tujuan.</p>
+  </section>
+  <section class="card">
+    <div class="section-head"><h2>Laporan Convert</h2><span class="badge" id="convertCount">0 DATA</span></div>
+    <div class="convert-report-wrap"><table class="convert-report"><thead><tr><th>Tanggal</th><th>Keterangan</th><th aria-label="Hapus"></th></tr></thead><tbody id="convertReportRows"></tbody></table></div>
+    <div class="empty" id="convertEmpty"><strong>Belum ada laporan convert</strong>Transaksi yang disimpan akan tampil di sini.</div>
+  </section>
+</section>
