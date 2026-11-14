@@ -1,16 +1,17 @@
 'use strict';
 
-const CACHE_NAME = 'mybudget-pwa-v21';
+const CACHE_NAME = 'mybudget-pwa-v22-convert-manual';
 const APP_SHELL = [
   './',
   './index.html',
   './manifest.webmanifest',
   './icons/icon.svg',
-  './css/style.css?v=unified-backup-memo-20261109',
-  './js/app.js?v=unified-backup-memo-20261109',
+  './css/style.css?v=convert-manual-20261115',
+  './js/app.js?v=convert-manual-20261115',
   './js/page-shell.js?v=home-grid-3x9-20261107',
   './pages/beranda/index.html?v=home-grid-3x9-20261107',
   './pages/rekening/index.html?v=home-grid-3x9-20261107',
+  './pages/convert-manual/index.html?v=convert-manual-20261115',
   './pages/tambah-rekening/index.html?v=home-grid-3x9-20261107',
   './pages/laporan-bulanan/index.html?v=home-grid-3x9-20261107',
   './pages/sallary/index.html?v=home-grid-3x9-20261107',
