@@ -112,3 +112,18 @@
 .convert-detail span:last-child{font-size:10px;color:var(--muted)}
 .convert-delete{width:28px;height:30px}
 .convert-delete svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+
+
+/* Kontrol pengurutan dan penghapusan rekening: default tersembunyi */
+.account-count-control{display:inline-flex;align-items:center;gap:9px;min-width:0}
+.compact-switch{display:inline-flex;align-items:center;cursor:pointer;flex:0 0 auto}
+.compact-switch input{position:absolute;opacity:0;width:1px;height:1px}
+.switch-track{position:relative;width:34px;height:19px;border-radius:99px;background:#cbd2df;transition:background .18s}
+.switch-track:after{content:"";position:absolute;top:2px;left:2px;width:15px;height:15px;border-radius:50%;background:#fff;box-shadow:0 1px 3px #0002;transition:transform .18s}
+.compact-switch input:checked+.switch-track{background:var(--primary)}
+.compact-switch input:checked+.switch-track:after{transform:translateX(15px)}
+.compact-switch input:focus-visible+.switch-track{outline:2px solid var(--primary);outline-offset:2px}
+#accountList .account-manage-only{display:none!important}
+#accountList.manage-mode .account-manage-only{display:inline-flex!important}
+#accountList .account{padding:8px 10px;gap:8px}
+#accountList .account-list{gap:7px}
