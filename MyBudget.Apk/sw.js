@@ -1,6 +1,6 @@
 'use strict';
 
-const CACHE_NAME = 'mybudget-pwa-v22-convert-manual';
+const CACHE_NAME = 'mybudget-pwa-v23-budget-default-account';
 const APP_SHELL = [
   './',
   './index.html',
@@ -18,7 +18,7 @@ const APP_SHELL = [
   './pages/setting/index.html?v=home-grid-3x9-20261107',
   './pages/about/index.html?v=home-grid-3x9-20261107',
   './pages/my-ip/index.html?v=home-grid-3x9-20261107',
-  './pages/budget-bulanan/index.html?v=single-budget-currency-20261110',
+  './pages/budget-bulanan/index.html?v=budget-default-account-20261115',
   './pages/percent/index.html?v=percent-slider-minus20-plus20-20261112',
   './pages/mymemo/index.html?v=memo-title-12-20261109',
   './pages/setting/index.html?v=unified-backup-20261109'
