@@ -126,4 +126,4 @@
 #accountList .account-manage-only{display:none!important}
 #accountList.manage-mode .account-manage-only{display:inline-flex!important}
 #accountList .account{padding:8px 10px;gap:8px}
-#accountList .account-list{gap:7px}
+#accountList{gap:7px}
