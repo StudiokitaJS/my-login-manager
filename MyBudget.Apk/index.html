@@ -12,7 +12,7 @@
   <link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="./icons/icon.svg">
   <title>MyBudget</title>
-  <link rel="stylesheet" href="css/style.css?v=unified-backup-memo-20261109">
+  <link rel="stylesheet" href="css/style.css?v=convert-manual-20261115">
 </head>
 <body>
   <main class="app">
@@ -108,6 +108,7 @@
     const pageFiles = [
       'pages/beranda/index.html',
       'pages/rekening/index.html',
+      'pages/convert-manual/index.html',
       'pages/tambah-rekening/index.html',
       'pages/laporan-bulanan/index.html',
       'pages/sallary/index.html',
@@ -173,7 +174,7 @@
         history.replaceState({ mybudgetPage: 'home' }, '', location.pathname + '#home');
 
         try {
-          await import('./js/app.js?v=unified-backup-memo-20261109');
+          await import('./js/app.js?v=convert-manual-20261115');
         } catch (error) {
           throw new Error('JavaScript aplikasi bermasalah: ' + (error.message || error));
         }
