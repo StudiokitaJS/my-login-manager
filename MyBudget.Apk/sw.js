@@ -1,6 +1,8 @@
 'use strict';
 
-const CACHE_NAME = 'mybudget-pwa-v22-convert-manual';
+// Naikkan versi cache setiap kali aturan cache atau aset inti berubah.
+const CACHE_NAME = 'mybudget-pwa-v23-network-first-20261115';
+const CACHE_PREFIX = 'mybudget-pwa-';
 const APP_SHELL = [
   './',
   './index.html',
@@ -8,20 +10,7 @@ const APP_SHELL = [
   './icons/icon.svg',
   './css/style.css?v=convert-manual-20261115',
   './js/app.js?v=convert-manual-20261115',
-  './js/page-shell.js?v=home-grid-3x9-20261107',
-  './pages/beranda/index.html?v=home-grid-3x9-20261107',
-  './pages/rekening/index.html?v=home-grid-3x9-20261107',
-  './pages/convert-manual/index.html?v=unified-backup-memo-20261109',
-  './pages/tambah-rekening/index.html?v=home-grid-3x9-20261107',
-  './pages/laporan-bulanan/index.html?v=home-grid-3x9-20261107',
-  './pages/sallary/index.html?v=home-grid-3x9-20261107',
-  './pages/setting/index.html?v=home-grid-3x9-20261107',
-  './pages/about/index.html?v=home-grid-3x9-20261107',
-  './pages/my-ip/index.html?v=home-grid-3x9-20261107',
-  './pages/budget-bulanan/index.html?v=single-budget-currency-20261110',
-  './pages/percent/index.html?v=percent-slider-minus20-plus20-20261112',
-  './pages/mymemo/index.html?v=memo-title-12-20261109',
-  './pages/setting/index.html?v=unified-backup-20261109'
+  './js/page-shell.js?v=home-grid-3x9-20261107'
 ];
 
 self.addEventListener('install', event => {
@@ -35,10 +24,30 @@ self.addEventListener('install', event => {
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys()
-      .then(keys => Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))))
+      .then(keys => Promise.all(
+        keys
+          .filter(key => key.startsWith(CACHE_PREFIX) && key !== CACHE_NAME)
+          .map(key => caches.delete(key))
+      ))
       .then(() => self.clients.claim())
   );
 });
+
+async function networkFirst(request) {
+  try {
+    // Minta salinan terbaru dari GitHub Pages, bukan salinan HTTP cache browser.
+    const response = await fetch(request, { cache: 'no-cache' });
+    if (response && response.ok) {
+      const cache = await caches.open(CACHE_NAME);
+      await cache.put(request, response.clone());
+    }
+    return response;
+  } catch (error) {
+    const cached = await caches.match(request);
+    if (cached) return cached;
+    throw error;
+  }
+}
 
 self.addEventListener('fetch', event => {
   const request = event.request;
@@ -47,28 +56,34 @@ self.addEventListener('fetch', event => {
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
 
-  if (request.mode === 'navigate') {
+  const path = url.pathname.toLowerCase();
+  const shouldRefreshFromNetwork =
+    request.mode === 'navigate' ||
+    request.destination === 'document' ||
+    request.destination === 'script' ||
+    request.destination === 'style' ||
+    /\\.(html|css|js|webmanifest)$/.test(path);
+
+  if (shouldRefreshFromNetwork) {
     event.respondWith(
-      fetch(request)
-        .then(response => {
-          if (response && response.ok) {
-            const copy = response.clone();
-            caches.open(CACHE_NAME).then(cache => cache.put(request, copy));
-          }
-          return response;
-        })
-        .catch(async () => (await caches.match(request)) || (await caches.match('./index.html')))
+      networkFirst(request).catch(async () => {
+        if (request.mode === 'navigate') {
+          return (await caches.match('./index.html')) || Response.error();
+        }
+        return Response.error();
+      })
     );
     return;
   }
 
+  // Aset non-kode (misalnya ikon) tetap cache-first agar hemat data dan cepat offline.
   event.respondWith(
     caches.match(request).then(cached => {
       if (cached) return cached;
-      return fetch(request).then(response => {
+      return fetch(request).then(async response => {
         if (response && response.ok && response.type === 'basic') {
-          const copy = response.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put(request, copy));
+          const cache = await caches.open(CACHE_NAME);
+          await cache.put(request, response.clone());
         }
         return response;
       });
