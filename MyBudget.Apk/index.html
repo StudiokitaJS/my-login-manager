@@ -120,6 +120,12 @@
     const pageMount = document.getElementById('pageMount');
 
     if ('serviceWorker' in navigator) {
+      let refreshingAfterWorkerUpdate = false;
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (refreshingAfterWorkerUpdate) return;
+        refreshingAfterWorkerUpdate = true;
+        window.location.reload();
+      });
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('./sw.js', { updateViaCache: 'none' })
           .then(registration => registration.update())
