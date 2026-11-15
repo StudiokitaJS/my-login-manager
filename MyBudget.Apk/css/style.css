@@ -127,3 +127,12 @@
 #accountList.manage-mode .account-manage-only{display:inline-flex!important}
 #accountList .account{padding:8px 10px;gap:8px}
 #accountList{gap:7px}
+
+
+/* Daftar rekening: judul kiri, toggle kanan; aksi hanya saat mode pengelolaan aktif */
+.account-list-head{display:flex;align-items:center;justify-content:space-between}
+.account-list-head h2{margin:0}
+#accountList .account-amount{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%}
+#accountList .account-idr-amount{min-width:0;overflow-wrap:anywhere}
+#accountList .account-foreign-amount{flex:0 0 auto;margin-left:auto;color:var(--muted);font-size:12px;font-weight:650;white-space:nowrap}
+#accountList.manage-mode .account-foreign-amount{display:none!important}
