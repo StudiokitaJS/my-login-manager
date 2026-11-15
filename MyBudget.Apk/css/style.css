@@ -136,3 +136,6 @@
 #accountList .account-idr-amount{min-width:0;overflow-wrap:anywhere}
 #accountList .account-foreign-amount{flex:0 0 auto;margin-left:auto;color:var(--muted);font-size:12px;font-weight:650;white-space:nowrap}
 #accountList.manage-mode .account-foreign-amount{display:none!important}
+
+/* Hilangkan badge jumlah data lama di header daftar rekening */
+#listCount{display:none!important}
